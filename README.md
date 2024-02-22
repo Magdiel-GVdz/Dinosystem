@@ -8,18 +8,18 @@ Pasos para descargar y levantar el proyecto
 
 3. cd dinosystem
 
-3. docker compose up
+4. code .
+
+5. docker compose up
 
 Pasos para empezar a desarrollar
 
-1. code .
+1. descargar la extension de vsc llamada dev containers
 
-2. descargar la extension de vsc llamada dev containers
+2. ctrl + shift + p y buscar Attach to runing container
 
-3. ctrl + shift + p y buscar Attach to runing container
+3. seleccionar contenedor a desarrollar
 
-4. seleccionar contenedor a desarrollar
+4. una vez abierta la nueva ventana dentro del contenedor, buscar el directorio /code
 
-5. una vez abierta la nueva ventana dentro del contenedor, buscar el directorio /code
-
-6. listo! :D
+5. listo! :D
