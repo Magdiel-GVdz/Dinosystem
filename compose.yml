@@ -12,6 +12,7 @@ services:
       - server
     volumes:
       - ./client:/code
+        ./client/node_modules:/code/node_modules
 
   server:
     build:
