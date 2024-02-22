@@ -7,8 +7,6 @@ WORKDIR /code
 # Copiar el archivo package.json y package-lock.json (si existe)
 COPY package*.json ./
 
-RUN apt update & apt upgrade -y
-
 # Instalar las dependencias
 RUN npm install
 
