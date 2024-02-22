@@ -1,4 +1,4 @@
-# itsabook
+# dinosystem
 
 Pasos para descargar y levantar el proyecto
 
