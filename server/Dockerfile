@@ -7,7 +7,7 @@ WORKDIR /code
 # Copiamos el archivo de requisitos al directorio de trabajo
 COPY requirements.txt .
 
-RUN apt update & apt upgrade -y
+RUN apt update -y & apt -y upgrade 
 
 # Instalamos las dependencias del proyecto
 RUN pip install -r requirements.txt
