@@ -5,13 +5,13 @@ FROM node:20.11.1-alpine3.19
 WORKDIR /code
 
 # Copiar el archivo package.json y package-lock.json (si existe)
-COPY package*.json ./
+COPY . .
 
 # Instalar las dependencias
 RUN npm install
 
 # Copiar los archivos del proyecto al directorio de trabajo del contenedor
-COPY . .
+#COPY . .
 
 # Iniciar servidor de desarrollo
 CMD ["npm", "run", "dev"]

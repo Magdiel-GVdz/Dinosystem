@@ -1,22 +1,21 @@
-version: '3'
+version: '3.8'
 
 services:
 
-  client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - 5173
-    depends_on:
-      - server
-    volumes:
-      - ./client:/code
-        ./client/node_modules:/code/node_modules
+#  client:
+#    build:
+#      context: ./client
+#      dockerfile: Dockerfile
+#    ports:
+#      - "5173:5173"
+#    depends_on:
+#      - server
+#    volumes:
+#      - ./client:/code
 
   server:
     build:
-      context: /server
+      context: ./server
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
@@ -27,11 +26,11 @@ services:
 
   db:
     image: postgres:13.14-alpine3.19
-    restart: always
+    #restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: postgre
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: '123'
+      POSTGRES_DB: 'postgre'
     ports:
       - "5432:5432"
 
