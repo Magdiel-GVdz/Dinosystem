@@ -8,10 +8,13 @@ Pasos para descargar y levantar el proyecto
 git clone https://github.com/Magdiel-GVdz/dinosystem.git
 ```
 ```
-cd dinosystem/server
+cd dinosystem
 ```
 ```
 code .
+```
+```
+cd server
 ```
 ```
 docker compose up
