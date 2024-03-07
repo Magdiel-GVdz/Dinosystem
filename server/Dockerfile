@@ -1,17 +1,13 @@
-# Establecemos la imagen base
-FROM python:3.13.0a4-alpine3.19
+FROM python:3.11.4-slim-bullseye
 
-# Establecemos el directorio de trabajo en el contenedor
-WORKDIR /code
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-# Copiamos el archivo de requisitos al directorio de trabajo
-COPY requirements.txt .
+WORKDIR /app
 
-# Instalamos las dependencias del proyecto
+COPY . /app/
+
+RUN apt-get update
+
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-
-# Copiamos el contenido del directorio actual al directorio de trabajo en el contenedor
-COPY . .
-
-# Ejecutamos el servidor de desarrollo de Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
