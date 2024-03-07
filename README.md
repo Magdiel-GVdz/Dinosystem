@@ -4,14 +4,18 @@ Pasos para descargar y levantar el proyecto
 
 1. abrir la terminal y escribir los siguientes comandos
 
-2. git clone https://github.com/Magdiel-GVdz/dinosystem.git
-
-3. cd dinosystem
-
-4. code .
-
-5. docker compose up
-
+```
+git clone https://github.com/Magdiel-GVdz/dinosystem.git
+```
+```
+cd dinosystem/server
+```
+```
+code .
+```
+```
+docker compose up
+```
 Pasos para empezar a desarrollar
 
 1. descargar la extension de vsc llamada dev containers
