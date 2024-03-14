@@ -1,15 +1,46 @@
+from django.utils import timezone
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin,
+    UserManager,
+    )
 from django.db import models
+from django.db import transaction
 
-# Create your models here.
-class user(models.Model):
+class CustomUserManager(UserManager):
+    def _create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError('The given email must be set')
+        try:
+            with transaction.atomic():
+                email = self.normalize_email(email)
+                user = self.model(email=email, **extra_fields)
+                user.set_password(password)
+                user.save(using=self._db)
+
+            return user
+        except:
+            raise
+
+    def create_user(self, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        return self._create_user(email, password, **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        return self._create_user(email, password, **extra_fields)
+    
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
-    middle_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    password = models.CharField(max_length=20)
-    address = models.CharField(max_length=100)
-    phone = models.CharField(max_length=20)
-    status = models.BooleanField(default=False)
-    register_date = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField()
-    def __str__(self):
-        return self.username
+    middle_name = models.CharField(max_length=100)
+    date_joined = models.DateTimeField(default=timezone.now)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    objects = CustomUserManager()
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    class Meta:
+        ordering = ["-date_joined"]
