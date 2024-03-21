@@ -1,0 +1,15 @@
+.Text{
+    width:340px;
+    height:8px;
+    background: grey;
+    margin: 5px;
+    padding:10px;
+    border-radius: 10px;
+    border-color: #20C112;
+    font-size:15px;
+    font-weight: bold;
+    color: #b7c1b9;
+    line-height:10px;
+    float:left;
+    
+  }

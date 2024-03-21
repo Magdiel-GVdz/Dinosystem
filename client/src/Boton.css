@@ -1,0 +1,24 @@
+
+
+.boton{
+    width:359px;
+    height:13px;
+    background: linear-gradient( 120deg, rgb(60, 228, 38), rgb(142, 42, 193),rgb(100, 22, 145));
+    margin: 5px;
+    padding:15px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-size:15px;
+    font-weight: bold;
+    color: #12D735;
+    line-height:5px;
+    float:left;
+    
+  }
+  .boton:hover{
+    opacity: 0.50;
+    -moz-opacity: .50;
+    filter:alpha (opacity=50);
+  }
+ 
