@@ -1,15 +1,19 @@
 .Text{
     width:340px;
     height:8px;
-    background: grey;
+    background: rgb(139, 135, 135);
     margin: 5px;
     padding:10px;
     border-radius: 10px;
     border-color: #20C112;
     font-size:15px;
     font-weight: bold;
-    color: #b7c1b9;
+    color: #0a0a0a;
     line-height:10px;
     float:left;
-    
   }
+
+  .Text::placeholder {
+    color: rgb(195, 191, 191); /* Cambia el color del placeholder aquí */
+  }
+  

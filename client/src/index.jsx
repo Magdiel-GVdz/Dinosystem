@@ -2,7 +2,16 @@ import ReactDOM from "react-dom/client";
 import { Greeting } from "./Greeting";
 import { Button } from "./Button";
 import { CuadroTexto } from "./CuadroTexto";
+import { App } from "./Peticiones";
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const login = (Email,Contraseña)  =>{
+  if (Email === '' && Contraseña === '')
+  alert('Llena los campos');
+};
+
 
 root.render(
   <body style={{ width: "100%", height: "100vh", backgroundColor: "#0C130C" }}>
@@ -53,8 +62,43 @@ root.render(
     >
       Contraseña
     </h3>
-    <CuadroTexto posicion={{ top: "415px", left: "65px" }} />
-    <CuadroTexto posicion={{ top: "510px", left: "65px" }} />
-    <Button text="Iniciar sesión" />
+    <form
+    
+
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(e);
+
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        
+        console.log('Email:', email);
+        console.log('Password:', password);
+        login( email,password);
+      
+      }}
+
+      
+
+    >
+      <CuadroTexto
+        posicion={{ top: "415px", left: "65px" }}
+        type="text"
+        name="Email"
+        value="Email" onChange={(e) => App.setEmail(e.target.value)}
+        placeholder="Introduce el E-mail"
+      />
+      
+      <CuadroTexto
+        posicion={{ top: "510px", left: "65px" }}
+        type="password"
+        name= "password"
+        value="Contraseña" onChange={(e) => App.setContraseña(e.target.value)}
+        placeholder="Introduce la Contraseña"
+      />
+      <Button text="Iniciar sesión" 
+      />
+    </form>
+    
   </body>
 );

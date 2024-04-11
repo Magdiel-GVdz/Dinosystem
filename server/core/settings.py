@@ -55,7 +55,7 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173/','http://localhost:8000/']
 
 
 ROOT_URLCONF = 'core.urls'
