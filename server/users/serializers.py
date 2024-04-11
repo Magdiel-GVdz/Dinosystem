@@ -1,75 +1,89 @@
-from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework.validators import UniqueValidator
-from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
+from rest_framework import serializers
+from .models import User
 
-
-from . models import User
-
-
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        # Add custom claims
-        token['email'] = user.email
-        # ...
-        return token
-    
-class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
-    email = serializers.EmailField(
-        required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())]
-    )
+class UserSerializer(serializers.ModelSerializer):
+    """
+    Serializer para el modelo User.
+    """
 
     class Meta:
         model = User
-        fields = ["email", "name", "middle_name", "last_name", "password", "password2"]
+        fields = ('id', 'email', 'name', 'last_name', 'middle_name', 'date_joined',
+                  'is_admin', 'is_active', 'is_staff', 'phone', 'address')
+        read_only_fields = ('id', 'date_joined')
+
+class RegisterSerializer(serializers.ModelSerializer):
+    """
+    Serializer para el registro de nuevos usuarios.
+    """
+
+    # Campo adicional para confirmar la contraseña
+    confirm_password = serializers.CharField(max_length=128, write_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'password', 'confirm_password', 'name', 'last_name', 'middle_name', 'phone', 'address')
+        extra_kwargs = {
+            'password': {'write_only': True}  # Para asegurar que la contraseña no sea visible en las respuestas
+        }
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError(
-                {"password": "Password fields didn't match."})
-
+        """
+        Método de validación personalizado para asegurarse de que la contraseña y su confirmación coincidan.
+        """
+        if attrs['password'] != attrs['confirm_password']:
+            raise serializers.ValidationError("Las contraseñas no coinciden.")
         return attrs
 
     def create(self, validated_data):
-        user = User.objects.create_user(
-            email=validated_data['email'],
-            password=validated_data['password'],
-            name=validated_data.get('name', ''),
-            middle_name=validated_data.get('middle_name', ''),
-            last_name=validated_data.get('last_name', '')
-        )
-
-        return user
+        """
+        Método para crear un nuevo usuario.
+        """
+        # Eliminar el campo confirm_password ya que no es un campo del modelo User
+        del validated_data['confirm_password']
         
-        '''
-        user = User.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            bio=validated_data['bio']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
-        '''
+        # Encriptar la contraseña antes de guardar el usuario
+        validated_data['password'] = make_password(validated_data['password'])
 
-class ProfileSerializer(serializers.ModelSerializer):
-    #notes = NoteSerializer(many=True, read_only=True)
-    class Meta:
-        model = User
-        fields = '__all__'
-        
+        return super(RegisterSerializer, self).create(validated_data)
 
-'''
-class RegisterUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ["email", "name", "middle_name", "last_name", "password"]
-'''
-        
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Serializer personalizado para generar tokens de acceso JWT con reclamos personalizados.
+    Extiende el serializer TokenObtainPairSerializer proporcionado por Django Rest Framework JWT.
+
+    Attributes:
+        None
+
+    Methods:
+        get_token(cls, user): Genera un token de acceso JWT para el usuario dado, con reclamos personalizados.
+
+    """
+
+    @classmethod
+    def get_token(cls, user):
+        """
+        Genera un token de acceso JWT para el usuario dado, con reclamos personalizados.
+
+        Args:
+            cls (class): Referencia a la clase misma (convención de Python).
+            user (User): Instancia del usuario para el cual se genera el token JWT.
+
+        Returns:
+            dict: Token JWT generado con reclamos personalizados.
+
+        """
+
+        # Obtener el token base utilizando el método get_token de la clase base (TokenObtainPairSerializer)
+        token = super().get_token(user)
+
+        # Agregar reclamos personalizados al token JWT
+        token['email'] = user.email
+        token['name'] = user.name
+        token['last_name'] = user.last_name
+        # Se pueden agregar más reclamos personalizados según sea necesario
+
+        return token
