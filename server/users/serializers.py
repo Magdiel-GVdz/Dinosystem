@@ -14,7 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
                   'is_admin', 'is_active', 'is_staff', 'phone', 'address')
         read_only_fields = ('id', 'date_joined')
 
-
 class RegisterSerializer(serializers.ModelSerializer):
     """
     Serializer para el registro de nuevos usuarios.
@@ -84,7 +83,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Agregar reclamos personalizados al token JWT
         token['email'] = user.email
         token['name'] = user.name
-        token['middle_name'] = user.middle_name
         token['last_name'] = user.last_name
         # Se pueden agregar más reclamos personalizados según sea necesario
 

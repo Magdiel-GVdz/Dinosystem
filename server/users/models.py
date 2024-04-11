@@ -88,21 +88,21 @@ class User(AbstractBaseUser, PermissionsMixin):
     Modelo personalizado de usuario.
     """
 
-    email = models.EmailField(unique=True)
+    is_admin = models.BooleanField(default=False)
     name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     middle_name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
     date_joined = models.DateTimeField(default=timezone.now)
-    is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    phone = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'middle_name', 'last_name']
+    REQUIRED_FIELDS = ['name', 'last_name']
 
     def get_by_natural_key(self):
         """
@@ -124,8 +124,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             raise ValidationError('Email field is required.')
         if not self.name:
             raise ValidationError('Name field is required.')
-        if not self.middle_name:
-            raise ValidationError('Middle name field is required.')
         if not self.last_name:
             raise ValidationError('Last name field is required.')
 
