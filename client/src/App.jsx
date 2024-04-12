@@ -24,7 +24,7 @@ const App = () => {
             <Route
               element={
                 <ProtectedRoute
-                  canActivate={isUserLoggedIn()}
+                  canActivate={true}
                   redirectPath="/"
                 />
               }
@@ -43,7 +43,7 @@ const App = () => {
             <Route
               element={
                 <ProtectedRoute
-                  canActivate={!isUserLoggedIn()}
+                  canActivate={ture}
                   redirectPath="/login"
                 />
               }
