@@ -22,12 +22,7 @@ const App = () => {
         <main style={{ padding: 10 }}>
           <Routes>
             <Route
-              element={
-                <ProtectedRoute
-                  canActivate={true}
-                  redirectPath="/"
-                />
-              }
+              element={<ProtectedRoute canActivate={true} redirectPath="/" />}
             >
               <Route path="/compras" element={<ComprasPage />} />
               <Route path="/devoluciones" element={<DevolucionesPage />} />
@@ -38,18 +33,15 @@ const App = () => {
               <Route path="/reportes" element={<ReportesPage />} />
               <Route path="/usuarios" element={<UsuariosPage />} />
               <Route path="/ventas" element={<VentasPage />} />
-              <Route path="*" element={<NotFoundPage />} />
             </Route>
             <Route
               element={
-                <ProtectedRoute
-                  canActivate={ture}
-                  redirectPath="/login"
-                />
+                <ProtectedRoute canActivate={true} redirectPath="/ventas" />
               }
             >
-              <Route path="/ventas" element={<LoginPage />} />
+              <Route path="/" element={<LoginPage />} />
             </Route>
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
       </div>
