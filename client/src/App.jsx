@@ -12,28 +12,44 @@ import PromocionesPage from "./pages/promociones/PromocionesPage";
 import ReportesPage from "./pages/reportes/ReportesPage";
 import UsuariosPage from "./pages/usuarios/UsuariosPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
     <Router>
       <div style={{ display: "flex" }}>
-      {window.location.pathname !== "/login" && <SideBar />}
+        {window.location.pathname !== "/" && <SideBar />}
         <main style={{ padding: 10 }}>
           <Routes>
-            <Route path="/compras" element={<ComprasPage/>} />
-            <Route path="/devoluciones" element={<DevolucionesPage/>} />
-            <Route path="/donaciones" element={<DonacionesPage/>} />
-            <Route path="/libros" element={<LibrosPage/>} />
-            <Route path="/mermas" element={<MermasPage/>} />
-            <Route path="/promociones" element={<PromocionesPage/>} />
-            <Route path="/reportes" element={<ReportesPage/>} />
-            <Route path="/usuarios" element={<UsuariosPage/>} />
-            <Route path="/ventas" element={<VentasPage/>} />
-            <Route path="/login" element={<LoginPage/>} />
-            <Route path="/" element={<VentasPage/>} />
-            <Route path="*" element={<NotFoundPage />} />
-
-            {/* Define más rutas aquí para otras páginas */}
+            <Route
+              element={
+                <ProtectedRoute
+                  canActivate={isUserLoggedIn()}
+                  redirectPath="/"
+                />
+              }
+            >
+              <Route path="/compras" element={<ComprasPage />} />
+              <Route path="/devoluciones" element={<DevolucionesPage />} />
+              <Route path="/donaciones" element={<DonacionesPage />} />
+              <Route path="/libros" element={<LibrosPage />} />
+              <Route path="/mermas" element={<MermasPage />} />
+              <Route path="/promociones" element={<PromocionesPage />} />
+              <Route path="/reportes" element={<ReportesPage />} />
+              <Route path="/usuarios" element={<UsuariosPage />} />
+              <Route path="/ventas" element={<VentasPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+            <Route
+              element={
+                <ProtectedRoute
+                  canActivate={!isUserLoggedIn()}
+                  redirectPath="/login"
+                />
+              }
+            >
+              <Route path="/ventas" element={<LoginPage />} />
+            </Route>
           </Routes>
         </main>
       </div>
