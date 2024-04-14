@@ -8,10 +8,7 @@ Abrir la terminal y escribir los siguientes comandos
 git clone https://github.com/Magdiel-GVdz/dinosystem.git
 ```
 ```
-cd dinosystem
-```
-```
-code client
+cd dinosystem/client
 ```
 ```
 npm i
