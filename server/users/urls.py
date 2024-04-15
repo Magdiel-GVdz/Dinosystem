@@ -10,4 +10,6 @@ urlpatterns = [
     #Profile
     path('', views.UserView.as_view(), name='user-list'),
     path('<int:pk>/', views.UserView.as_view(), name='user-detail'),
+    path('superuser/', views.SuperUserView.as_view(), name='superuser'),
+    path('password/', views.ChangePasswordView.as_view(), name='change-password'),
 ]
