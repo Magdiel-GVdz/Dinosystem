@@ -23,8 +23,8 @@ class UserView(APIView):
     crear, editar y eliminar usuarios.
     """
 
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,)
+   # authentication_classes = (JWTAuthentication,)
+   # permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         # Serializar los datos del cuerpo de la solicitud
