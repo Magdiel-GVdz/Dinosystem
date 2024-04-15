@@ -25,9 +25,9 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'password', 'confirm_password', 'name', 'last_name', 'middle_name', 'phone', 'address')
-        extra_kwargs = {
-            'password': {'write_only': True}  # Para asegurar que la contraseña no sea visible en las respuestas
-        }
+        # extra_kwargs = {
+        #     'password': {'write_only': True}  # Para asegurar que la contraseña no sea visible en las respuestas
+        # }
 
     def validate(self, attrs):
         """
@@ -44,8 +44,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         # Eliminar el campo confirm_password ya que no es un campo del modelo User
         del validated_data['confirm_password']
 
-        # Encriptar la contraseña antes de guardar el usuario
-        validated_data['password'] = make_password(validated_data['password'])
 
         user = User.objects.create_user(**validated_data)
         return user
@@ -79,9 +77,6 @@ class RegisterSuperuserSerializer(serializers.ModelSerializer):
         """
         # Eliminar el campo confirm_password ya que no es un campo del modelo User
         del validated_data['confirm_password']
-
-        # Encriptar la contraseña antes de guardar el usuario
-        validated_data['password'] = make_password(validated_data['password'])
 
         user = User.objects.create_superuser(**validated_data)
         return user

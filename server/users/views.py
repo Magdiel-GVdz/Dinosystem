@@ -24,7 +24,7 @@ class UserView(APIView):
     """
 
     authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         # Serializar los datos del cuerpo de la solicitud
