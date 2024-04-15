@@ -40,6 +40,7 @@ THIRD_APPS = [
 MY_APPS = [
     'books',
     'users',
+    'promos',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + MY_APPS

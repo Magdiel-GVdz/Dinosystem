@@ -21,7 +21,7 @@ class Category(models.Model):
         return self.name
 
 class Book(models.Model):
-    barcode = models.CharField(max_length=13, unique=True)
+    barcode = models.CharField(max_length=13, primary_key=True)
     title = models.CharField(max_length=100)
     price = models.FloatField()
     isbn = models.CharField(max_length=13)
