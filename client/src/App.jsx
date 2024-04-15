@@ -13,7 +13,9 @@ import ReportesPage from "./pages/reportes/ReportesPage";
 import UsuariosPage from "./pages/usuarios/UsuariosPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import AutoresPage from "./pages/autores/AutoresPage";
+import EditorialesPage from "./pages/editoriales/EditorialesPage";
+import GenerosPage from "./pages/generos/GenerosPage";
 const App = () => {
   return (
     <Router>
@@ -28,6 +30,9 @@ const App = () => {
               <Route path="/devoluciones" element={<DevolucionesPage />} />
               <Route path="/donaciones" element={<DonacionesPage />} />
               <Route path="/libros" element={<LibrosPage />} />
+              <Route path="/autores" element={<AutoresPage />} />
+              <Route path="/editoriales" element={<EditorialesPage />} />
+              <Route path="/generos" element={<GenerosPage />} />
               <Route path="/mermas" element={<MermasPage />} />
               <Route path="/promociones" element={<PromocionesPage />} />
               <Route path="/reportes" element={<ReportesPage />} />

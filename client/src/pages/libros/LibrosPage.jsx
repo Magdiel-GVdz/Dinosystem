@@ -1,9 +1,15 @@
-import React from 'react'
-
+import React from "react";
+import LibrosTable from "./LibrosTable";
+import LibroModal from "./LibroModal"
 const LibrosPage = () => {
   return (
-    <div>LibrosPage</div>
-  )
-}
+    <div>
+      LibrosPage
+      <LibrosTable />
+      <LibroModal/>
 
-export default LibrosPage
+    </div>
+  );
+};
+
+export default LibrosPage;
