@@ -17,13 +17,13 @@ services:
   postgres_db:
     image: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_dinodb:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${PG_NAME}
       - POSTGRES_USER=${PG_USER}
       - POSTGRES_PASSWORD=${PG_PASSWORD}
 
 volumes:
-  postgres_data:
+  postgres_dinodb:
 
   

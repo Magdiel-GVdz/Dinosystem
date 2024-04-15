@@ -5,7 +5,7 @@ from .serializers import (
     BookAuthorSerializer, 
     BookCategorySerializer, 
     AuthorSerializer, 
-    CategorySerializer, 
+    CategorySerializer,
     PublisherSerializer
 )
 

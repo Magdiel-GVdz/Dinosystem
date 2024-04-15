@@ -21,8 +21,8 @@ from .views import (
 
 urlpatterns = [
     # Books
-    path('books/', BookListCreateView.as_view()),
-    path('books/<int:pk>/', BookDetailView.as_view()),
+    path('book/', BookListCreateView.as_view()),
+    path('book/<int:pk>/', BookDetailView.as_view()),
     # Authors
     path('author/', AuthorListCreateView.as_view()),
     path('author/<int:pk>/', AuthorDetailView.as_view()),
@@ -33,9 +33,9 @@ urlpatterns = [
     path('publisher/', PublisherListCreateView.as_view()),
     path('publisher/<int:pk>/', PublisherDetailView.as_view()),
     # Book-Author and Book-Category
-    path('author/book/<int:pk>/', BookAuthorListCreateView.as_view()),
-    path('author/book/author/<int:pk>/', BookAuthorDetailView.as_view()),
+    path('book/author/', BookAuthorListCreateView.as_view()),
+    path('book/author/<int:pk>/', BookAuthorDetailView.as_view()),
     # Book-Category
-    path('category/book/<int:pk>/', BookCategoryListCreateView.as_view()),
-    path('category/book/category/<int:pk>/', BookCategoryDetailView.as_view()),
+    path('book/category/', BookCategoryListCreateView.as_view()),
+    path('book/category/<int:pk>/', BookCategoryDetailView.as_view()),
 ]

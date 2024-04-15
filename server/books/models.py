@@ -22,10 +22,10 @@ class Category(models.Model):
 
 class Book(models.Model):
     barcode = models.CharField(max_length=13, unique=True)
-    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
     price = models.FloatField()
     isbn = models.CharField(max_length=13)
-    stock = models.IntegerField()
+    stock = models.IntegerField(default=0)
     
     authors = models.ManyToManyField(Author, through='BookAuthor', related_name='books')
     categories = models.ManyToManyField(Category, through='BookCategory', related_name='books')
@@ -33,20 +33,21 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='books')
     
     def __str__(self):
-        return self.name
+        return self.title
 
 class BookAuthor(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book_authors')
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='book_authors')
 
     def __str__(self):
-        return f"{self.book.name} - {self.author.name} {self.author.last_name}"
+        return f"{self.book.title} - {self.author.name} {self.author.last_name}"
 
 class BookCategory(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book_categories')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='book_categories')
 
     def __str__(self):
-        return f"{self.book.name} - {self.category.name}"
+        return f"{self.book.title} - {self.category.name}"
 
     
+
