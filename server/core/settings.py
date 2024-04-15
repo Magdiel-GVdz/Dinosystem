@@ -38,7 +38,7 @@ THIRD_APPS = [
 ]
 
 MY_APPS = [
-    #'books',
+    'books',
     'users',
 ]
 
