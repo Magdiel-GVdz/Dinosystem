@@ -1,10 +1,12 @@
 import React from "react";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
+import { useAuth } from "../provider/AuthProvider";
 
 const SideBar = () => {
+  const { logout} = useAuth();
   return (
-    <div style={{ display: "flex", height: "100%", minHeight: "400px" }}>
+    <div style={     { display: "flex", minHeight: "400px", width: '250px', height: '100%', position: 'fixed', left: 0, top: 0, backgroundColor: '#f0f0f0'  }}>
       <Sidebar>
         <Menu>
           <MenuItem component={<Link to="/ventas" />}>DinoVentas</MenuItem>
@@ -22,7 +24,7 @@ const SideBar = () => {
             DinoPromociones
           </MenuItem>
           <MenuItem component={<Link to="/mermas" />}>DinoMermas</MenuItem>
-          <MenuItem component={<Link to="/reporte" />}>DinoReporte</MenuItem>
+          <MenuItem component={<Link to="/reportes" />}>DinoReporte</MenuItem>
           <MenuItem component={<Link to="/donaciones" />}>
             DinoDonaciones
           </MenuItem>
@@ -31,7 +33,8 @@ const SideBar = () => {
           </MenuItem>
           <MenuItem component={<Link to="/usuarios" />}>DinoUsuarios</MenuItem>
 
-          <MenuItem>Cerrar sesion </MenuItem>
+          
+          <MenuItem onClick={logout}>Cerrar sesion </MenuItem>
         </Menu>
       </Sidebar>
     </div>
