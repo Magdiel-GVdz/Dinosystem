@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Stack } from "@mui/material";
+import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import React from "react";
 import { FormContainer, TextFieldElement, useForm } from "react-hook-form-mui";
 
@@ -24,11 +24,25 @@ function NuevoAutoresModal() {
 
   return (
     <>
-      <Button onClick={() => setOpen(!open)}>Nuevo Autor</Button>
+      <Button
+        onClick={() => setOpen(!open)}
+        style={{
+          color: "white",
+          fontFamily: "Arial",
+          margin: "5px",
+          background: "green",
+          borderRadius: "15px",
+          width: "100px",
+          height: "30px",
+        }}
+      >
+        Nuevo
+      </Button>
       <Modal open={open}>
         <Box sx={{ ...style, width: 700, height: 600 }}>
           <FormContainer onSuccess={onSuccess}>
             <Stack spacing={2}>
+              <Typography variant="h6">Nuevo Autor</Typography>
               <TextFieldElement
                 name="Autor"
                 label="Nombre del Autor"
@@ -47,9 +61,7 @@ function NuevoAutoresModal() {
                 required
                 control={control}
               />
-              <Button variant="contained" type="submit">
-                Añadir
-              </Button>
+             
             </Stack>
           </FormContainer>
           <Button onClick={() => setOpen(!open)}>Cerrar</Button>
