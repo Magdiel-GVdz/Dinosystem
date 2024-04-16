@@ -1,22 +1,26 @@
 import { Button, Grid, Stack } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import { FormContainer, PasswordElement, TextFieldElement, useForm } from 'react-hook-form-mui'
-import { UserContext } from '../../context/UserProvider';
+import { useAuth } from '../../provider/AuthProvider'
 import LoginIcon from '@mui/icons-material/Login';
 
 const LoginForm = () => {
-    const { authenticate, loading } = useContext(UserContext);
-
+    const { authenticate, loading, error } = useAuth();
+  
     const { handleSubmit, control, watch } = useForm();
   
     const onSubmit = handleSubmit((e) => {
-      authenticate(e.email, e.password)
-        .then((data) => {
-          console.log("Logged in!", data);
-        })
-        .catch((err) => {
-          console.log("Ops!", err);
-        });
+      if (authenticate && e) {
+        authenticate(e.email, e.password)
+          .then((data) => {
+            console.log("Logged in!", data);
+          })
+          .catch((err) => {
+            console.log("Ops!", err);
+          });
+      } else {
+        console.error(`Unexpected null authenticate or form data: ${authenticate} ${e}`);
+      }
     });
 
   return (
