@@ -1,8 +1,11 @@
 import React from 'react'
+import EditorialesTable from './EditorialesTable'
 
 function EditorialesPage() {
   return (
-    <div>EditorialesPage</div>
+    <div>EditorialesPage
+      <EditorialesTable />
+    </div>
   )
 }
 

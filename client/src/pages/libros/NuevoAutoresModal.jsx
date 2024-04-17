@@ -26,20 +26,26 @@ function NuevoAutoresModal() {
     <>
       <Button
         onClick={() => setOpen(!open)}
-        style={{
-          color: "white",
-          fontFamily: "Arial",
-          margin: "5px",
-          background: "green",
-          borderRadius: "15px",
-          width: "100px",
-          height: "30px",
-        }}
+        
       >
         Nuevo
       </Button>
-      <Modal open={open}>
-        <Box sx={{ ...style, width: 700, height: 600 }}>
+      <Modal open={open} onClose={() => setOpen(!open)} style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}>
+        <Box
+          sx={{
+            backgroundColor: "#fff",
+            borderRadius: "8px",
+            padding: "20px",
+            width: "70%",
+            maxWidth: "700px", // Ajusta el ancho máximo del modal según sea necesario
+            maxHeight: "80vh", // Ajusta la altura máxima del modal según sea necesario
+            overflowY: "auto", // Agrega scroll vertical si el contenido es demasiado largo
+          }}
+        >
           <FormContainer onSuccess={onSuccess}>
             <Stack spacing={2}>
               <Typography variant="h6">Nuevo Autor</Typography>

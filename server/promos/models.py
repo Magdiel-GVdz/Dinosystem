@@ -3,14 +3,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Promotion(models.Model):
     """Model for promotions that can be applied to books."""
-
-    book = models.OneToOneField(
+    name = models.CharField(max_length=100, unique=True, verbose_name="Name")
+    book = models.ManyToManyField(
         "books.Book",
-        on_delete=models.CASCADE,
         related_name="promotion",
         verbose_name="Book",
     )
-    name = models.CharField(max_length=100, unique=True, verbose_name="Name")
     description = models.TextField(
         help_text="A brief description of the promotion.",
         verbose_name="Description",

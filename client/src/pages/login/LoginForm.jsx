@@ -3,9 +3,10 @@ import React, { useContext, useState } from 'react'
 import { FormContainer, PasswordElement, TextFieldElement, useForm } from 'react-hook-form-mui'
 import { useAuth } from '../../provider/AuthProvider'
 import LoginIcon from '@mui/icons-material/Login';
+import { Navigate } from 'react-router-dom';
 
 const LoginForm = () => {
-    const { authenticate, loading, error } = useAuth();
+    const { authenticate, loading, error, token } = useAuth();
   
     const { handleSubmit, control, watch } = useForm();
   
@@ -52,6 +53,8 @@ const LoginForm = () => {
             >
               {loading ? "Loading" : "Submit"}
             </Button>
+            {error && <p>{error}</p>}
+            {token && <Navigate to="/ventas" />}
             {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
           </Stack>
         </FormContainer>

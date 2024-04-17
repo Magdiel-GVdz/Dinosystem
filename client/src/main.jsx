@@ -7,7 +7,6 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import App from "./App";
-import { UserProvider } from "./context/UserProvider";
 // import DataAdapter from "./utils/DataAdapter";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

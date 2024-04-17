@@ -1,13 +1,12 @@
 import React from "react";
 import LibrosTable from "./LibrosTable";
-import LibroModal from "./LibroModal"
+import NuevoLibroModal from "./NuevoLibroModal";
 const LibrosPage = () => {
   return (
     <div>
       LibrosPage
       <LibrosTable />
-      <LibroModal/>
-
+      <NuevoLibroModal />
     </div>
   );
 };

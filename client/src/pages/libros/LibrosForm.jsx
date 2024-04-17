@@ -1,11 +1,21 @@
 import { Button, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AutocompleteElement, FormContainer, TextFieldElement, useForm } from 'react-hook-form-mui'
 import NuevoAutoresModal from './NuevoAutoresModal';
 import NuevoGeneroModal from './NuevoGeneroModal';
-import NuevoEditorialModal from './EditorialForm';
+import NuevoEditorialModal from './NuevoEditorialModal';
+import { useBook } from '../../hooks/useBook';
 
 function LibrosForm() {
+    const {getAuthors,getPublishers,getGenres} = useBook();
+    const [authorsData, setAuthorsData] = useState([]);
+
+    useEffect(() => {
+        getAuthors().then((newData) => setAuthorsData(newData));
+        getPublishers().then((newData) => setPublishersData(newData));
+        getGenres().then((newData) => setGenresData(newData));
+    }, [getAuthors,getPublishers,getGenres]);
+
     const {handleSubmit, control} = useForm();
     const onSuccess = handleSubmit((e)=>{console.log(e)})
   return (
@@ -13,12 +23,7 @@ function LibrosForm() {
         <Stack spacing={2}>
         <Typography variant="h6">Nuevo Libro</Typography>  
         <TextFieldElement name="Titulo" label="Titulo del Libro" required control={control}/>
-        <AutocompleteElement name="Autores" label="Autor(es)" required multiple control={control} options={[
-          {label:"Autor 1", value:"Autor 1",id:1},
-          {label:"Autor 2", value:"Autor 2",id:2},
-          {label:"Autor 3", value:"Autor 3",id:3},
-          {label:"Autor 4", value:"Autor 4",id:4},
-        ]}/>
+        <AutocompleteElement name="Autores" label="Autor(es)" required multiple control={control} options={authorsData.map(a => ({label: `${a.name} ${a.last_name}`, value: `${a.name} ${a.last_name}`, id: a.id}))}/>
         <NuevoAutoresModal/>
         <AutocompleteElement name="Editorial" label="Editorial" control={control} required options={[
           {label:"Editorial 1", value:"Editorial 1",id:1},

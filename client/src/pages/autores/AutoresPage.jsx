@@ -1,8 +1,12 @@
 import React from 'react'
+import AutoresTable from './AutoresTable'
 
 const AutoresPage = () => {
   return (
-    <div>AutoresPage</div>
+    <div>AutoresPage
+
+    <AutoresTable />
+    </div>
   )
 }
 

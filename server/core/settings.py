@@ -41,6 +41,7 @@ MY_APPS = [
     'books',
     'users',
     'promos',
+    'buys',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + MY_APPS
@@ -57,7 +58,7 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS = ['localhost:5173']
 
 
 ROOT_URLCONF = 'core.urls'

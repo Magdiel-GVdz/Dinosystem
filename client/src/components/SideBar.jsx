@@ -6,7 +6,9 @@ import { useAuth } from "../provider/AuthProvider";
 const SideBar = () => {
   const { logout} = useAuth();
   return (
-    <div style={     { display: "flex", minHeight: "400px", width: '250px', height: '100%', position: 'fixed', left: 0, top: 0, backgroundColor: '#f0f0f0'  }}>
+    <div style={{ position: 'fixed', top: '64px', left: 0, zIndex: 99 }}>
+      <div style={{ width: '250px', backgroundColor: '#f0f0f0' }}>
+
       <Sidebar>
         <Menu>
           <MenuItem component={<Link to="/ventas" />}>DinoVentas</MenuItem>
@@ -37,6 +39,7 @@ const SideBar = () => {
           <MenuItem onClick={logout}>Cerrar sesion </MenuItem>
         </Menu>
       </Sidebar>
+      </div>
     </div>
   );
 };
