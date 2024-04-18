@@ -8,7 +8,7 @@ const NuevoLibroModal = () => {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <Button onClick={handleOpen}>Nuevo</Button>
+      <Button onClick={handleOpen}>Nuevo libro</Button>
       <Modal
         open={open}
         onClose={handleClose}

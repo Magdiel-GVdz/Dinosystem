@@ -15,6 +15,8 @@ function NuevoEditorialModal() {
     postPublisher(e).then(() => {
       setOpen(false)
       console.log("success");
+    }).catch((error) => {
+      console.log(error);
     });
   });
 

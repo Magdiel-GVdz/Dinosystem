@@ -60,12 +60,6 @@ function NuevoAutoresModal() {
                 required
                 control={control}
               />
-              <TextFieldElement
-                name="last_name"
-                label="Apellidos"
-                required
-                control={control}
-              />
               <Button type="submit">Guardar</Button>
              
             </Stack>
