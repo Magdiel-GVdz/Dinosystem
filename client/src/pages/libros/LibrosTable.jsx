@@ -22,7 +22,7 @@ export default function LibrosTable() {
 
     useEffect(() => {
         getBooks().then((newData) => setData(newData));
-    }, [deleteBook, editBook]);
+    }, []);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

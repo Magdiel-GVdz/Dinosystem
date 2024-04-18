@@ -26,7 +26,7 @@ export default function GenerosTable() {
 
   useEffect(() => {
     getGenres().then((newData) => setData(newData));
-  }, [deleteGenre, updateGenre]);
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

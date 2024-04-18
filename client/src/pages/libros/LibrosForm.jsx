@@ -45,7 +45,7 @@ function LibrosForm() {
     getAuthors().then((newData) => setAuthors(newData));
     getPublishers().then((newData) => setPublishers(newData));
     getGenres().then((newData) => setGenres(newData));
-  }, [postAuthor, postGenre, postPublisher, postBook]);
+  }, []);
   
   const { handleSubmit, control } = useForm();
 
