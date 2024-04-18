@@ -26,7 +26,7 @@ export default function EditorialesTable() {
 
   useEffect(() => {
     getPublishers().then((newData) => setData(newData));
-  }, [deletePublisher, updatePublisher]);
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

@@ -27,7 +27,7 @@ export default function AutoresTable() {
 
   useEffect(() => {
     getAuthors().then((newData) => setData(newData));
-  }, [deleteAuthor, updateAuthor]);
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
