@@ -14,7 +14,7 @@ export default function EditorialesTable() {
 
     useEffect(() => {
         getPublishers().then((newData) => setData(newData));
-    }, [getPublishers]);
+    }, []);
     
     return (
         <TableContainer component={Paper}>

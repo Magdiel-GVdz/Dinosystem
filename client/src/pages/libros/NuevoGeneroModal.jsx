@@ -15,7 +15,7 @@ function NuevoGeneroModal() {
         onClick={() => setOpen(!open)}
         
       >
-        Nuevo
+        Nuevo Genero
       </Button>
       <Modal open={open} onClose={() => setOpen(!open)} style={{
           display: "flex",

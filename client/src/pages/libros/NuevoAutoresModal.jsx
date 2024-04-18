@@ -1,6 +1,7 @@
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import React from "react";
 import { FormContainer, TextFieldElement, useForm } from "react-hook-form-mui";
+import { useBook } from "../../hooks/useBook";
 
 const style = {
   position: "absolute",
@@ -18,8 +19,12 @@ const style = {
 function NuevoAutoresModal() {
   const [open, setOpen] = React.useState(false);
   const { handleSubmit, control } = useForm();
+  const { postAuthor } = useBook();
+
   const onSuccess = handleSubmit((e) => {
     console.log(e);
+    postAuthor(e).then(() => setOpen(false));
+    console.log("success");
   });
 
   return (
@@ -28,7 +33,7 @@ function NuevoAutoresModal() {
         onClick={() => setOpen(!open)}
         
       >
-        Nuevo
+        Nuevo Autor
       </Button>
       <Modal open={open} onClose={() => setOpen(!open)} style={{
           display: "flex",
@@ -50,23 +55,18 @@ function NuevoAutoresModal() {
             <Stack spacing={2}>
               <Typography variant="h6">Nuevo Autor</Typography>
               <TextFieldElement
-                name="Autor"
+                name="name"
                 label="Nombre del Autor"
                 required
                 control={control}
               />
               <TextFieldElement
-                name="ApellidoP"
-                label="Apellido Paterno"
+                name="last_name"
+                label="Apellidos"
                 required
                 control={control}
               />
-              <TextFieldElement
-                name="ApellidoM"
-                label="Apellido Materno"
-                required
-                control={control}
-              />
+              <Button type="submit">Guardar</Button>
              
             </Stack>
           </FormContainer>

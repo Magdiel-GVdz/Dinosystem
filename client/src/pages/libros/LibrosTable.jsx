@@ -18,7 +18,7 @@ export default function LibrosTable() {
 
     useEffect(() => {
         getBooks().then((newData) => setData(newData));
-    }, [getBooks]);
+    }, []);
 
     return (
         <TableContainer component={Paper}>

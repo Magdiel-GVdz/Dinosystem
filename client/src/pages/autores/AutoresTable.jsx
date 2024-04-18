@@ -18,7 +18,7 @@ export default function AutoresTable() {
 
     useEffect(() => {
         getAuthors().then((newData) => setData(newData));
-    }, [getAuthors]);
+    }, []);
     
     return (
         <TableContainer component={Paper}>

@@ -99,6 +99,51 @@ export const useBook = () => {
         }
     }
 
-    return { getBooks, getBook, getAuthors, getAuthor, getGenres, getGenre, getPublishers, getPublisher }
+    const postBook = async (book) => {
+        try {
+            const response = await axios.post("http://localhost:8000/api/v1/book/", book)
+            const { data } = response || {}
+            return data || {}
+        } catch (error) {
+            console.error("Error posting book:", error)
+            return {}
+        }
+    }
+
+    const postAuthor = async (author) => {
+        try {
+            const response = await axios.post("http://localhost:8000/api/v1/author/", author)
+            const { data } = response || {}
+            return data || {}
+        } catch (error) {
+            console.error("Error posting author:", error)
+            return {}
+        }
+    }
+
+    const postGenre = async (genre) => {
+        try {
+            const response = await axios.post("http://localhost:8000/api/v1/category/", genre)
+            const { data } = response || {}
+            return data || {}
+        } catch (error) {
+            console.error("Error posting genre:", error)
+            return {}
+        }
+    }
+
+    const postPublisher = async (publisher) => {
+        try {
+            const response = await axios.post("http://localhost:8000/api/v1/publisher/", publisher)
+            const { data } = response || {}
+            return data || {}
+        } catch (error) {
+            console.error("Error posting publisher:", error)
+            return {}
+        }
+    }
+
+
+    return { getBooks, getBook, getAuthors, getAuthor, getGenres, getGenre, getPublishers, getPublisher, postBook, postAuthor, postGenre, postPublisher }
 }
 

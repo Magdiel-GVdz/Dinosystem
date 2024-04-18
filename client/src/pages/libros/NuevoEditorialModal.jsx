@@ -1,23 +1,30 @@
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import React from "react";
 import { FormContainer, TextFieldElement, useForm } from "react-hook-form-mui";
+import { useBook } from "../../hooks/useBook";
 
 
 function NuevoEditorialModal() {
   const [open, setOpen] = React.useState(false);
 
-  const { handleSubmit, control } = useForm() || {};
-  const onSuccess = handleSubmit?.((e) => {
+  const { handleSubmit, control } = useForm();
+  const { postPublisher } = useBook();
+
+  const onSuccess = handleSubmit((e) => {
     console.log(e);
-  }) || (() => {});
+    postPublisher(e).then(() => {
+      setOpen(false)
+      console.log("success");
+    });
+  });
 
   return (
     <>
       <Button
         onClick={() => setOpen(!open)}>
-        Nuevo
+        Nueva Editorial
       </Button>
-      <Modal open={open} handleClose={() => setOpen(!open)} style={{
+      <Modal open={open} onClose={() => setOpen(!open)} style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -37,7 +44,7 @@ function NuevoEditorialModal() {
             <Stack spacing={2}>
               <Typography variant="h6">Nuevo Editorial</Typography>
               <TextFieldElement
-                name="Editorial"
+                name="name"
                 label="Nueva Editorial"
                 required
                 control={control}
