@@ -39,13 +39,13 @@ function LibrosForm() {
   const [publishers, setPublishers] = useState([]);
   const [genres, setGenres] = useState([]);
 
-  const { getAuthors, getPublishers, getGenres, postBook, postAuthor, postGenre, postPublisher } = useBook();
+  const { getAuthors, getPublishers, getGenres, postBook, postAuthor, postGenre, postPublisher, updateBook } = useBook();
 
   useEffect(() => {
     getAuthors().then((newData) => setAuthors(newData));
     getPublishers().then((newData) => setPublishers(newData));
     getGenres().then((newData) => setGenres(newData));
-  }, [postAuthor, postGenre, postPublisher, postBook]);
+  }, [updateBook]);
   
   const { handleSubmit, control } = useForm();
 

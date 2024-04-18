@@ -9,11 +9,6 @@ import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination'; // Importa el componente de paginación
 
 import { useBook } from '../../hooks/useBook';
-
-function createData(codigo, titulo, stock, precio) {
-    return { codigo, titulo, stock, precio };
-}
-
 export default function LibrosTable() {
     const { getBooks, deleteBook, editBook } = useBook();
     const [data, setData] = useState([]);

@@ -1,9 +1,10 @@
 import React from 'react'
-import { useAuth } from '../../provider/AuthProvider'
+import UsuariosTaple from './UsuariosTable'
 
 const UsuariosPage = () => {
   return (
     <div>UsuariosPage
+      <UsuariosTaple />
     </div>
   )
 }
