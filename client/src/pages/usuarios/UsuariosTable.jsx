@@ -9,15 +9,22 @@ import Paper from '@mui/material/Paper';
 import { useUser } from '../../hooks/useUser';
 export default function PromocionesTable() {
 
-    const { getUsers } = useUser();
+    const { getUsers , getUser } = useUser();
     
     const [data, setData] = useState([]);
-
+    
     useEffect(() => {
         getUsers().then((newData) => setData(newData));
        
     }, []);
-   
+    function verificarEmpleado(estado) {
+        return estado ? "Gerente" : "Empleado";
+      }
+    
+      function verificarEstado(estado) {
+        return estado ? "Activo" : "Inactivo";
+      }
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -39,21 +46,21 @@ export default function PromocionesTable() {
                 <TableBody>
                     {data.map((row) => (
                         <TableRow
-                            key={row.id}
+                            key={row.email}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {row.id}
+                                {row.email}
                             </TableCell>
-                            <TableCell align="right">{row.email}</TableCell>
+                            
                             <TableCell align="right">{row.name}</TableCell>
                             <TableCell align="right">{row.last_name }</TableCell>
-                            <TableCell align="right">{row.midle_name}</TableCell>
+                            <TableCell align="right">{row.middle_name}</TableCell>
                             <TableCell align="right">{row.date_joined}</TableCell>
-                            <TableCell align="right">{row.is_active }</TableCell>
-                            <TableCell align="right">{row.is_admin }</TableCell>
+                            <TableCell align="right">{verificarEstado(row.is_active) }</TableCell>
+                            <TableCell align="right">{verificarEmpleado(row.is_staff) }</TableCell>
                             <TableCell align="right">{row.phone}</TableCell>
-                            <TableCell align="right">{row.is_staff }</TableCell>
+                            <TableCell align="right">{row.address }</TableCell>
                            
                         </TableRow>
                     ))}

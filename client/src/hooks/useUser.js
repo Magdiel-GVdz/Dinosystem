@@ -1,4 +1,4 @@
-import axios from 'react'
+import axios from 'axios'
 
 export const useUser = () => {
 
@@ -33,10 +33,29 @@ export const useUser = () => {
         }
     }
 
+    const postUsers = async (user) => {
+        try {
+          const response = await axios.post(
+            "http://localhost:8000/api/v1/users/",
+            user
+          );
+          const { data } = response || {};
+          return data || {};
+        } catch (error) {
+          console.error("Error posting user:", error);
+          return {};
+        }
+      }
+
+
+    
+
     return {
         getUsers,
-        getUser
+        getUser,
+        postUsers
     }
+
 
 }
 
