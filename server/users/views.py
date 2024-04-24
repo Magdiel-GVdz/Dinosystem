@@ -100,8 +100,8 @@ class UserView(APIView):
     
     
 class SuperUserView(APIView):
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,)
+   # authentication_classes = (JWTAuthentication,)
+    #permission_classes = (IsAuthenticated,)
     def post(self, request):
         # Serializar los datos del cuerpo de la solicitud
         serializer = RegisterSuperuserSerializer(data=request.data)
