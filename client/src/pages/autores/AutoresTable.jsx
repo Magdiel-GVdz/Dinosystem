@@ -59,7 +59,7 @@ export default function AutoresTable() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
+                {/* <TableCell>ID</TableCell> */}
                 <TableCell align="right">Nombre</TableCell>
               </TableRow>
             </TableHead>
@@ -77,9 +77,9 @@ export default function AutoresTable() {
                   onClick={() => handleRowClick(row)} // Manejador de clics en la fila
                   selected={selectedRow && selectedRow.id === row.id} // Marcar la fila como seleccionada si coincide con la fila seleccionada
                 >
-                  <TableCell component="th" scope="row">
-                    {row.id}
-                  </TableCell>
+                  {/* <TableCell component="th" scope="row"> */}
+                    {/* {row.id} */}
+                  {/* </TableCell> */}
                   <TableCell align="right">{row.name}</TableCell>
                 </TableRow>
               ))}
