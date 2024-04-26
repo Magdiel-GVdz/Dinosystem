@@ -11,7 +11,6 @@ import NuevoGeneroModal from "./NuevoGeneroModal";
 import NuevoEditorialModal from "./NuevoEditorialModal";
 import { useBook } from "../../hooks/useBook";
 import { generatePath } from "react-router-dom";
-import EditLibroModal from "./EditLibroModal";
 
 function transformarFormato(entrada) {
   // Mapear los IDs de autores y categorías
@@ -35,12 +34,12 @@ function transformarFormato(entrada) {
   return salida;
 }
 
-function LibrosForm() {
+function EditFormBook() {
   const [authors, setAuthors] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const [genres, setGenres] = useState([]);
 
-  const { getAuthors, getPublishers, getGenres, postBook, postAuthor, postGenre, postPublisher } = useBook();
+  const { getAuthors, getPublishers, getGenres, postBook, postAuthor, postGenre, postPublisher, updateBook } = useBook();
 
   useEffect(() => {
     getAuthors().then((newData) => setAuthors(newData));
@@ -55,7 +54,7 @@ function LibrosForm() {
     console.log("onSuccess");
     const data = transformarFormato(entrada);
     console.log(data);
-    postBook(data)
+    updateBook(data)
       .then(() => {
         console.log("se agrego el libro");
       })
@@ -142,4 +141,4 @@ function LibrosForm() {
   );
 }
 
-export default LibrosForm;
+export default EditFormBook;
