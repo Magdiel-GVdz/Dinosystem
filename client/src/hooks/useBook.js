@@ -166,7 +166,7 @@ export const useBook = () => {
   const updateBook = async (book) => {
     try {
       const response = await axios.patch(
-        `http://localhost:8000/api/v1/book/${book.id}/`,
+        `http://localhost:8000/api/v1/book/${book.barcode}/`,
         book
       );
       const { data } = response || {};
