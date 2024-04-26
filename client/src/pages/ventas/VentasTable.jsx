@@ -11,21 +11,7 @@ import { useBook } from "../../hooks/useBook";
 import { useUser } from "../../hooks/useUser";
 import { usePromo } from "../../hooks/usePromo";
 
-
-function transformarFormato(entrada) {
-  // Mapear los IDs de libros
-  const librosBarcodes = entrada.book.map((book) => book.barcode);
-
-  const salida = {
-   
-    book: librosBarcodes,
-  }
- return salida;
-}
 export default function VentasTable() {
-
-
-
 
 
   return (
@@ -45,5 +31,6 @@ export default function VentasTable() {
         </TableBody>
       </Table>
     </TableContainer>
+    
   );
 }
