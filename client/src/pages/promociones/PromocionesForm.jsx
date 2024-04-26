@@ -12,7 +12,7 @@ import { usePromo } from "../../hooks/usePromo";
 
 function transformarFormato(entrada) {
   // Mapear los IDs de libros
-  const librosBarcodes = entrada.book.map((book) => book.barcode);
+  const librosBarcodes = entrada.book.map((book) => book.id);
 
   const salida = {
     name: entrada.name,
