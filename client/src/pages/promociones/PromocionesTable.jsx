@@ -51,7 +51,7 @@ export default function PromocionesTable() {
                             <TableCell align="right">{row.discount + "%"}</TableCell>
                             <TableCell align="right">{row.start_date}</TableCell>
                             <TableCell align="right">{row.end_date}</TableCell>
-                            <TableCell align="right">{ + " " }</TableCell>
+                            <TableCell align="right">{ row.book + " " }</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
