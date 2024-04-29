@@ -17,8 +17,6 @@ function transformarFormato(entrada) {
     name: entrada.name,
     description: entrada.description,
     discount: entrada.discount,
-    start_date: entrada.start_date,
-    end_date: entrada.end_date,
     book: librosBarcodes,
   };
   console.log(salida);
@@ -50,6 +48,16 @@ function VentasForm() {
     <>
       <FormContainer onSuccess={onSuccess}>
         <Stack spacing={2}>
+          <AutocompleteElement control={control}
+          options={books.map((book) => ({
+            label: book.barcode,
+            value: book.barcode,
+            id: book.barcode,
+          }))}
+          name="barcode"
+          label="codigo de barras"
+          required
+           />
           <AutocompleteElement
             control={control}
             options={books.map((book) => ({
@@ -58,15 +66,21 @@ function VentasForm() {
               id: book.barcode,
             }))}
             name="book"
-            label="Libros"
+            label="Nombre Del Libro"
             required
           />
           <TextFieldElement  type="number" name="stock" label="cantidad" required/>
-          <Button variant="contained" type="submit">
-            Añadir
-          </Button>
         </Stack>
       </FormContainer>
+      <Button  type="submit">
+            Añadir
+          </Button>
+          <Button  type="submit">
+            Realizar Venta
+          </Button>
+          <Button  type="submit">
+            Cancelar Venta
+          </Button>
     </>
   );
 }

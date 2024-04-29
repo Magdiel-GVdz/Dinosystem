@@ -6,12 +6,23 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useBook } from "../../hooks/useBook";
 import { useUser } from "../../hooks/useUser";
 import { usePromo } from "../../hooks/usePromo";
 
 export default function VentasTable() {
+const {getBooks,updateBook, getAuthors} = useBook();
+const {getUser} = useUser();
+const {getPromos} = usePromo();
+const [authors, setAuthors] = useState([]);
+const [data, setData] = useState([]);
+
+// useEffect(() => {
+//   getBooks().then((newData) => setData(newData));
+//   getAuthors().then((newData) => setAuthors(newData));
+//   getPromos().then((newData) => setData(newData));
+// }, []);
 
 
   return (
@@ -24,10 +35,18 @@ export default function VentasTable() {
             <TableCell align="right">Precio</TableCell>
             <TableCell align="right">Descuento</TableCell>
             <TableCell align="right">Subtotal</TableCell>
-          </TableRow>
+          </TableRow >
         </TableHead>
         <TableBody> 
-
+        <TableRow 
+          
+        >
+        <TableCell align="right"></TableCell>
+        <TableCell> </TableCell>
+        <TableCell></TableCell>
+        <TableCell></TableCell>
+        <TableCell></TableCell>
+        </TableRow>
         </TableBody>
       </Table>
     </TableContainer>

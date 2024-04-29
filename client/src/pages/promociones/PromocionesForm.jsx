@@ -82,12 +82,14 @@ function PromocionesForm() {
           <DateTimePickerElement
             control={control}
             name="start_date"
+            views={['day', 'month', 'year', 'hours', 'minutes']}
             label="Fecha inicio"
             required
           />
           <DateTimePickerElement
             control={control}
             name="end_date"
+            views={['day', 'month', 'year','hours','minutes']}
             label="Fecha final"
             required
           />
