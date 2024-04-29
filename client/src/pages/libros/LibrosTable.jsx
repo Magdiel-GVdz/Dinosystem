@@ -108,7 +108,7 @@ export default function LibrosTable() {
                   </TableCell>
                   <TableCell align="right">{row.title}</TableCell>
                   <TableCell align="right">{row.stock}</TableCell>
-                  <TableCell align="right">{row.price}</TableCell>
+                  <TableCell align="right">{'$'+row.price}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -131,6 +131,7 @@ export default function LibrosTable() {
           <Button onClick={handleEditButtonClick} color="primary">
             Editar
           </Button>
+          
 
           <ConfirmModal
             open={openConfirmEditModal}
@@ -145,26 +146,25 @@ export default function LibrosTable() {
             
             handleAccept={() => {
               setOpenConfirmEditModal(false);
-              
-              updateBook({ barcode: selectedRow.barcode , title: newData, price: selectedRow.price, isbn: selectedRow.isbn });
+              updateBook({ barcode: selectedRow.barcode , title: newData});
               setSelectedRow(null);
             }}
           />
 
-          <EditModal
-            open={openEditModal}
-            handleClose={() => setOpenEditModal(false)}
-            handleCancel={() => setOpenEditModal(false)}
-            handleAccept={(e) => {
-              console.log(e.title);
-              console.log(selectedRow.title);
-              setOpenConfirmEditModal(true);
-              setOpenEditModal(false);
-              setNewData(e.title);
-            }}
-            value={selectedRow.title}
-            label={"nombre del Libro"}
-          />
+            <EditModal
+              open={openEditModal}
+              handleClose={() => setOpenEditModal(false)}
+              handleCancel={() => setOpenEditModal(false)}
+              handleAccept={(e) => {
+                console.log(e.name);
+                console.log(selectedRow.title);
+                setOpenConfirmEditModal(true);
+                setOpenEditModal(false);
+                setNewData(e.name);
+              }}
+              value={selectedRow.title}
+              label={"titulo Libro"}
+            />
         </>
       )}
     </>
