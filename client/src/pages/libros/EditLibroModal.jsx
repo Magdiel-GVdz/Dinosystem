@@ -1,16 +1,14 @@
-import { Box, Button, Modal } from "@mui/material";
-import React, { useState } from "react";
-import LibrosForm from "./LibrosForm";
-import { useBook } from "../../hooks/useBook";
+import { Box, Button, Modal } from '@mui/material'
+import React, { useState } from 'react'
+import EditFormBook from './EditFormBook';
 
-const NuevoLibroModal = () => {
-  const [open, setOpen] = useState(false);
+const EditLibroModal = () => {
+    const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { postBook } = useBook();
   return (
     <>
-      <Button onClick={handleOpen}>Nuevo libro</Button>
+      <Button onClick={handleOpen}>Editar libro</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -31,11 +29,11 @@ const NuevoLibroModal = () => {
             overflowY: "auto", // Agrega scroll vertical si el contenido es demasiado largo
           }}
         >
-          <LibrosForm/>
+          <EditFormBook/>
         </Box>
       </Modal>
     </>
   );
 };
 
-export default NuevoLibroModal;
+export default EditLibroModal

@@ -1,16 +1,14 @@
 import { Box, Button, Modal } from "@mui/material";
 import React, { useState } from "react";
-import LibrosForm from "./LibrosForm";
-import { useBook } from "../../hooks/useBook";
+import UsusariosForm from "./UsuariosForm";
 
-const NuevoLibroModal = () => {
+const UsuarisoModal = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { postBook } = useBook();
   return (
     <>
-      <Button onClick={handleOpen}>Nuevo libro</Button>
+      <Button onClick={handleOpen}>Nuevo Usuario</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -31,11 +29,13 @@ const NuevoLibroModal = () => {
             overflowY: "auto", // Agrega scroll vertical si el contenido es demasiado largo
           }}
         >
-          <LibrosForm/>
+        <UsusariosForm />
         </Box>
+        
       </Modal>
+      
     </>
   );
 };
 
-export default NuevoLibroModal;
+export default UsuarisoModal;

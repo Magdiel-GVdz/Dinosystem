@@ -1,8 +1,10 @@
 import { Box, Button, Modal, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { FormContainer, TextFieldElement } from 'react-hook-form-mui'
 
 const EditModal = ({ open, handleClose, handleCancel, handleAccept, label, value }) => {
+  const [editValue, setEditValue] = useState(value)
+  console.log("edit" ,editValue);
   return (
     
     <Modal
@@ -30,7 +32,7 @@ const EditModal = ({ open, handleClose, handleCancel, handleAccept, label, value
           <TextFieldElement
             name="name"
             label={label}
-            defaultValue={value}
+            defaultValue={editValue}
           />
         <Box sx={{ mt: 2 }}>
           <Button onClick={handleCancel}>Cancelar</Button>

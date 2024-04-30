@@ -60,7 +60,9 @@ export default function AutoresTable() {
             <TableHead>
               <TableRow>
                 {/* <TableCell>ID</TableCell> */}
-                <TableCell align="right">Nombre</TableCell>
+
+                <TableCell align="left">Nombre</TableCell>
+
               </TableRow>
             </TableHead>
             <TableBody>
@@ -72,15 +74,17 @@ export default function AutoresTable() {
                 : data
               ).map((row) => (
                 <TableRow
-                  key={row.id}
+                  key={row.id} 
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   onClick={() => handleRowClick(row)} // Manejador de clics en la fila
                   selected={selectedRow && selectedRow.id === row.id} // Marcar la fila como seleccionada si coincide con la fila seleccionada
                 >
-                  {/* <TableCell component="th" scope="row"> */}
-                    {/* {row.id} */}
-                  {/* </TableCell> */}
-                  <TableCell align="right">{row.name}</TableCell>
+
+                  {/* <TableCell component="th" scope="row">
+                    {row.id}
+                  </TableCell> */}
+                  <TableCell align="left">{row.name}</TableCell>
+
                 </TableRow>
               ))}
             </TableBody>

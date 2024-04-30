@@ -1,8 +1,14 @@
 import React from 'react'
-
+import VentasTable from './VentasTable'
+import VentasForm from './VentasForm'
 const VentasPage = () => {
   return (
-    <div>VentasPage</div>
+    <div>VentasPage
+      <VentasTable/>
+    <VentasForm/>
+
+    </div>
+    
   )
 }
 

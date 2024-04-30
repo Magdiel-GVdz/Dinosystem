@@ -37,16 +37,19 @@ export const usePromo = () => {
         }
     }
 
-    const postPromo = async (promo) => {
+    const postPromo = async (promos) => {
         try {
-            const response = await axios.post("http://localhost:8000/api/v1/promos/", promo)
-            const { data } = response || {}
-            return data || {}
+          const response = await axios.post(
+            "http://localhost:8000/api/v1/promos/",
+            promos
+          );
+          const { data } = response || {};
+          return data || {};
         } catch (error) {
-            console.error("Error posting promo:", error)
-            return {}
+          console.error("Error posting promos:", error);
+          return {};
         }
-    }
+      }
 
    
     return { getPromos, getPromo ,postPromo }
