@@ -13,13 +13,16 @@ import { usePromo } from "../../hooks/usePromo";
 function transformarFormato(entrada) {
   // Mapear los IDs de libros
   const librosBarcodes = entrada.book.map((book) => book.id);
+  const new_start_date = entrada.start_date.toISOString();
+  const new_end_date = entrada.end_date.toISOString();
+
 
   const salida = {
     name: entrada.name,
     description: entrada.description,
     discount: entrada.discount,
-    start_date: entrada.start_date,
-    end_date: entrada.end_date,
+    start_date: new_start_date,
+    end_date: new_end_date,
     book: librosBarcodes,
   };
   console.log(salida);
@@ -34,8 +37,7 @@ function PromocionesForm() {
   useEffect(() => {
 
     getBooks().then((newData) => setBooks(newData));
-  }),
-    [];
+  },[]);
 
 
   const { handleSubmit, control } = useForm();

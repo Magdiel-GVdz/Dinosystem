@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from datetime import datetime
 
 class Promotion(models.Model):
     """Model for promotions that can be applied to books."""
@@ -28,10 +29,12 @@ class Promotion(models.Model):
     start_date = models.DateTimeField(
         help_text="The date when the promotion starts being available.",
         verbose_name="Start date",
+        default=datetime.now,
     )
     end_date = models.DateTimeField(
         help_text="The date when the promotion stops being available.",
         verbose_name="End date",
+        default=datetime.now,
     )
 
     class Meta:
@@ -41,4 +44,7 @@ class Promotion(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
 

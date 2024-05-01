@@ -1,0 +1,21 @@
+{
+    'user',
+    'detalleVenta' : [
+        {
+            'libro',
+            'promocion',
+            'precio',
+            'subtotal'
+            'devuelto'
+        },
+        {
+            'libro',
+            'promocion',
+            'precio',
+            'subtotal'
+            'devuelto'
+        }
+    ]
+    'fecha',
+    'total'   
+}

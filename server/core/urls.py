@@ -23,7 +23,7 @@ urlpatterns = [
     path('api/v1/users/', include('users.urls')),
     path('api/v1/', include('books.urls')),
     path('api/v1/promos/', include('promos.urls')),
-    path('api/v1/buys/', include('buys.urls')),
+    #path('api/v1/buys/', include('buys.urls')),
     
     
     path('docs/', include_docs_urls('Dinosystem')),
