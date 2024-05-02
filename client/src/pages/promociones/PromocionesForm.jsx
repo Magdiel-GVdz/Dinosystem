@@ -34,8 +34,7 @@ function PromocionesForm() {
   useEffect(() => {
 
     getBooks().then((newData) => setBooks(newData));
-  }),
-    [];
+  },[]);
 
 
   const { handleSubmit, control } = useForm();
