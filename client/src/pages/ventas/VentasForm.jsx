@@ -31,7 +31,6 @@ function VentasForm() {
   const { getBooks } = useBook();
 
   useEffect(() => {
-
     getBooks().then((newData) => setBooks(newData));
   },[]);
     

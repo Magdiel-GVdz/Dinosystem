@@ -59,7 +59,9 @@ export default function GenerosTable() {
             <TableHead>
               <TableRow>
                 {/* <TableCell>ID</TableCell> */}
+
                 <TableCell align="left">Nombre</TableCell>
+
               </TableRow>
             </TableHead>
             <TableBody>
@@ -76,10 +78,12 @@ export default function GenerosTable() {
                   onClick={() => handleRowClick(row)} // Manejador de clics en la fila
                   selected={selectedRow && selectedRow.id === row.id} // Marcar la fila como seleccionada si coincide con la fila seleccionada
                 >
+
                   {/* <TableCell component="th" scope="row">
                     {row.id}
                   </TableCell> */}
                   <TableCell align="left">{row.name}</TableCell>
+
                 </TableRow>
               ))}
             </TableBody>
