@@ -1,5 +1,21 @@
 from django.db import models
+from users.models import User
+from books.models import Book
 
+
+class Buy(models.Model):
+    user = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+    total_price = models.CharField(max_length=250, blank=True)
+    
+class BuyItem(models.Model):
+    buy = models.ForeignKey(Buy, on_delete=models.SET_NULL, null=True)
+    book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField(default=0)
+    price = models.CharField(max_length=250, blank=True)
+    subtotal = models.FloatField()
+    returned = models.BooleanField(default=False)
+    
 # Create your models here.
 # ejemplo de peticion para la api
 # {
@@ -25,18 +41,3 @@ from django.db import models
 #     'fecha',
 #     'total'   
 # }
-
-class Buy(models.Model):
-    user = models.ForeignKey('users.User', on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    total = models.FloatField()
-    detailBuy = models.ManyToManyField('books.Book', through='DetailBuy')
-    
-class DetailBuy(models.Model):
-    buy = models.ForeignKey(Buy, on_delete=models.CASCADE)
-    book = models.ForeignKey('books.Book', on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    price = models.FloatField()
-    subtotal = models.FloatField()
-    returned = models.BooleanField(default=False)
-    
