@@ -11,6 +11,7 @@ import { useBook } from "../../hooks/useBook";
 import { useUser } from "../../hooks/useUser";
 import { usePromo } from "../../hooks/usePromo";
 
+
 export default function VentasTable() {
 const {getBooks,updateBook, getAuthors} = useBook();
 const {getUser} = useUser();
@@ -18,11 +19,13 @@ const {getPromos} = usePromo();
 const [authors, setAuthors] = useState([]);
 const [data, setData] = useState([]);
 
-// useEffect(() => {
-//   getBooks().then((newData) => setData(newData));
-//   getAuthors().then((newData) => setAuthors(newData));
-//   getPromos().then((newData) => setData(newData));
-// }, []);
+
+
+useEffect(() => {
+  getBooks().then((newData) => setData(newData));
+  getAuthors().then((newData) => setAuthors(newData));
+  getPromos().then((newData) => setData(newData));
+ },[]);
 
 
   return (
@@ -38,15 +41,20 @@ const [data, setData] = useState([]);
           </TableRow >
         </TableHead>
         <TableBody> 
+          {data.map((row) => (
+            
+         
         <TableRow 
-          
+        key={row.title}
+        sx={{ '&:last-child td, &:last-child th': { border: 0 } }} 
         >
-        <TableCell align="right"></TableCell>
-        <TableCell> </TableCell>
-        <TableCell></TableCell>
-        <TableCell></TableCell>
-        <TableCell></TableCell>
+        <TableCell align="right" >{row.stock}</TableCell>
+        <TableCell align="right">{row.title + " " + row.authors}</TableCell>
+        <TableCell align="right"> {row.price}</TableCell>
+        <TableCell align="right">{row.discount}</TableCell>
+        <TableCell align="right">{row.subtotal}</TableCell>
         </TableRow>
+         ))}
         </TableBody>
       </Table>
     </TableContainer>

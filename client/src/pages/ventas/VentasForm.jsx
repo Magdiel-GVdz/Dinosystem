@@ -1,4 +1,4 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography, tableContainerClasses } from "@mui/material";
 import {
   AutocompleteElement,
   FormContainer,
@@ -12,12 +12,15 @@ import { useEffect, useState } from "react";
 function transformarFormato(entrada) {
   // Mapear los IDs de libros
   const librosBarcodes = entrada.book.map((book) => book.barcode);
-
+  const Subtotal = entrada.book.map((book) => book.price * (1 - (book.discount / 100)));
   const salida = {
+    stock: entrada.stock,
     name: entrada.name,
     description: entrada.description,
+    price: entrada.price,
     discount: entrada.discount,
     book: librosBarcodes,
+    subtotal: Subtotal
   };
   console.log(salida);
   return salida;
@@ -29,9 +32,8 @@ function VentasForm() {
 
   useEffect(() => {
     getBooks().then((newData) => setBooks(newData));
-  }, []);
-
-
+  },[]);
+    
   const { handleSubmit, control } = useForm();
 
   const onSuccess = handleSubmit((entrada) => {
@@ -41,6 +43,7 @@ function VentasForm() {
     console.log(data);
     
   });
+
 
   return (
     <>

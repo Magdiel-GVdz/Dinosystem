@@ -1,8 +1,10 @@
 import React from 'react'
-
+import ComprasTable from './ComprasTable'
 const ComprasPage = () => {
   return (
-    <div>ComprasPage</div>
+    <div>ComprasPage
+      <ComprasTable/>
+    </div>
   )
 }
 
