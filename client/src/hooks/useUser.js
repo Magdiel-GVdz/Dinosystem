@@ -47,13 +47,26 @@ export const useUser = () => {
         }
       }
 
-
+      const updateUser = async (user) => {
+        try {
+          const response = await axios.patch(
+            `http://localhost:8000/api/v1/users/${user.id}/`,
+            user
+          );
+          const { data } = response || {};
+          return data || {};
+        } catch (error) {
+          console.error("Error updating user:", error);
+          return {};
+        }
+      };
     
 
     return {
         getUsers,
         getUser,
-        postUsers
+        postUsers,
+        updateUser
     }
 
 
