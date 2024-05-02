@@ -16,7 +16,6 @@ function transformarFormato(entrada) {
   const new_start_date = entrada.start_date.toISOString();
   const new_end_date = entrada.end_date.toISOString();
 
-
   const salida = {
     name: entrada.name,
     description: entrada.description,

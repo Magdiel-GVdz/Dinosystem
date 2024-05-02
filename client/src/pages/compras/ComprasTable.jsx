@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, Button } from '@mui/material';
-import { AutocompleteElement } from 'react-hook-form-mui';
+import { useBook } from '../../hooks/useBook';
+import { usePromo } from '../../hooks/usePromo';
 
 function TemporalTable() {
   // Estado para almacenar la información temporal
   const [data, setData] = useState([]);
   const [nombre, setNombre] = useState('');
+  const { getBook } = useBook();
+  const {getBooks } = usePromo();
+  const [book, setBook] = useState([]);
+
+  useEffect(() => {
+    getBook().then((newData) => setBook(newData));
+  },[]);
+  
   // Función para agregar un nuevo elemento a la tabla
   const agregarElemento = () => {
     const nuevoElemento = {
       id: data.length + 1,
       nombre: nombre,
+      titulo: book.title,
+      cantidad: 0,
+      precio: data.price,
+      descuento: data.discount,
+      subtotal: data.price * (1 - (data.discount / 100)),
       // Otras propiedades...
     };
+
 
     // Actualizamos el estado agregando el nuevo elemento al final del array
     setData([...data, nuevoElemento]);
@@ -36,17 +51,26 @@ function TemporalTable() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Nombre</TableCell>
+              
+              <TableCell>cantidad</TableCell>
+              <TableCell>titulo</TableCell>
+              <TableCell>precio</TableCell>
+              <TableCell>descuento</TableCell>
+              <TableCell>subtotal</TableCell>
               {/* Añade aquí más encabezados si lo necesitas */}
             </TableRow>
           </TableHead>
           <TableBody>
             {/* Iteramos sobre los elementos en el estado para renderizar las filas */}
             {data.map((elemento) => (
-              <TableRow key={elemento.id}>
-                <TableCell>{elemento.id}</TableCell>
-                <TableCell>{elemento.nombre}</TableCell>
+              <TableRow key={elemento.barcode}>
+
+                <TableCell>{elemento.cantidad}</TableCell>
+                <TableCell>{elemento.titulo}</TableCell>
+                <TableCell>{elemento.precio}</TableCell>
+                <TableCell>{elemento.descuento}</TableCell>
+                <TableCell>{elemento.subtotal}</TableCell>
+                
                 {/* Renderiza más celdas si hay más propiedades en el objeto */}
               </TableRow>
             ))}
@@ -58,5 +82,3 @@ function TemporalTable() {
 }
 
 export default TemporalTable;
-
-
