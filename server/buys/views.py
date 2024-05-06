@@ -5,6 +5,8 @@ from rest_framework import status
 from datetime import datetime
 
 from .models import Buy, BuyItem
+from users.models import User
+from promos.models import Promotion
 from .serializer import BuySerializer, BuyItemSerializer
 from books.models import Book
 
@@ -27,8 +29,8 @@ def get_buys(request):
     serializer = BuySerializer(buys, many=True)
     return Response(serializer.data)
 
-@api_view(['GET'])
-#@permission_classes([IsAdminUser])
+@api_view(['POST'])
+#@permission_classes([IsAuthenticated])
 def create_buy(request):
     user = request.user
     data = request.data
@@ -44,13 +46,28 @@ def create_buy(request):
         )
         for i in buyItems:
             book = Book.objects.get(barcode=i['barcode'])
-            item = BuyItem.objects.create(
-                buy=buy,
+            promotion = Promotion.objects.filter(
                 book=book,
-                quantity=i['quantity'],
-                price=i['price'],
-                subtotal=i['subtotal']
-            )
+                start_date__lte=datetime.now(),
+                end_date__gte=datetime.now()
+            ).first()
+            if promotion:
+                descuento = (promotion.discount/100)*float(i['price'])
+                item = BuyItem.objects.create(
+                    buy=buy,
+                    book=book,
+                    quantity=i['quantity'],
+                    price=float(i['price']),
+                    subtotal=float(i['subtotal'])-descuento
+                )
+            else:
+                item = BuyItem.objects.create(
+                    buy=buy,
+                    book=book,
+                    quantity=i['quantity'],
+                    price=i['price'],
+                    subtotal=i['subtotal']
+                )
             
             book.stock -= item.quantity
             book.save()
@@ -59,7 +76,20 @@ def create_buy(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response({'mesaje': sum_of_prices}, status=status.HTTP_400_BAD_REQUEST)
-    
+
+@api_view(['GET'])
+#@permission_classes([IsAuthenticated])
+def solo_buys(request, pk):
+    user = request.user
+    try:
+        buys = Buy.objects.get(pk=pk)
+        if user.is_admin or buys.user == user:
+            serializer = BuySerializer(buys, many=False)
+            return Response(serializer.data)
+        else:
+            return Response({'message': 'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+    except Buy.DoesNotExist:
+        return Response({'message': 'Buy not found'}, status=status.HTTP_404_NOT_FOUND)
     
 @api_view(['GET'])
 #@permission_classes([IsAdminUser])
