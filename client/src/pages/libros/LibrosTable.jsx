@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 
 import { useBook } from "../../hooks/useBook";
 import EditModal from "../../components/EditModal";
-
+import EditLibroModal from "./EditLibroModal";
 function transformarFormato(entrada) {
     // Mapear los IDs de autores y categorías
     const autoresIDs = entrada.authors.map((author) => author.id);
@@ -128,43 +128,9 @@ export default function LibrosTable() {
 
       {selectedRow && ( // Mostrar el botón de editar si hay una fila seleccionada
         <>
-          <Button onClick={handleEditButtonClick} color="primary">
-            Editar
-          </Button>
+          <EditLibroModal/>
           
-
-          <ConfirmModal
-            open={openConfirmEditModal}
-            handleClose={() => {
-              setOpenConfirmEditModal(false);
-              setSelectedRow(null);
-            }}
-            handleCancel={() => {
-              setOpenConfirmEditModal(false);
-              setSelectedRow(null);
-            }}
-            
-            handleAccept={() => {
-              setOpenConfirmEditModal(false);
-              updateBook({ barcode: selectedRow.barcode , title: newData});
-              setSelectedRow(null);
-            }}
-          />
-
-            <EditModal
-              open={openEditModal}
-              handleClose={() => setOpenEditModal(false)}
-              handleCancel={() => setOpenEditModal(false)}
-              handleAccept={(e) => {
-                console.log(e.name);
-                console.log(selectedRow.title);
-                setOpenConfirmEditModal(true);
-                setOpenEditModal(false);
-                setNewData(e.name);
-              }}
-              value={selectedRow.title}
-              label={"titulo Libro"}
-            />
+          
         </>
       )}
     </>
