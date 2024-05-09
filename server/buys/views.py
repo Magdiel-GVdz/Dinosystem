@@ -67,8 +67,8 @@ def create_buy(request):
                     quantity=i['quantity'],
                     price=i['price']
                 )
-
-                book.stock -= item.quantity
+                
+                book.stock += item.quantity
                 book.save()
             except Book.DoesNotExist:
                 return Response({'message': 'Book does not exist'}, status=status.HTTP_400_BAD_REQUEST)
