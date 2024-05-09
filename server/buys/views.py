@@ -9,6 +9,7 @@ from users.models import User
 from promos.models import Promotion
 from .serializer import BuySerializer, BuyItemSerializer
 from books.models import Book
+from django.db.utils import IntegrityError
 
 @api_view(['GET'])
 #@permission_classes([IsAdminUser])
@@ -29,53 +30,54 @@ def get_buys(request):
     serializer = BuySerializer(buys, many=True)
     return Response(serializer.data)
 
+
 @api_view(['POST'])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def create_buy(request):
-    user = request.user
+    email = request.user
     data = request.data
     buyItems = data['buyItems']
     total_price = data['total_price']
+
+    sum_of_prices = sum(float(item['price']) * item['quantity'] for item in buyItems)
     
-    sum_of_prices = sum(int(float(item['price'])) * item['quantity'] for item in buyItems) 
-    
+    try:
+        user = User.objects.get(email=email)
+        print("user: ", user)
+    except User.DoesNotExist:
+        return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
     if total_price == sum_of_prices:
-        buy = Buy.objects.create(
-            user=user,
-            total_price=total_price
-        )
+        try:
+            buy = Buy.objects.create(
+                user=user,
+                total_price=total_price
+            )
+            print("buy: ", buy)
+        except IntegrityError:
+            return Response({'message': 'Buy already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
         for i in buyItems:
-            book = Book.objects.get(barcode=i['barcode'])
-            promotion = Promotion.objects.filter(
-                book=book,
-                start_date__lte=datetime.now(),
-                end_date__gte=datetime.now()
-            ).first()
-            if promotion:
-                descuento = (promotion.discount/100)*float(i['price'])
+            try:
+                book = Book.objects.get(barcode=i['barcode'])
+                print("book: ", book)
                 item = BuyItem.objects.create(
-                    buy=buy,
                     book=book,
-                    quantity=i['quantity'],
-                    price=float(i['price']),
-                    subtotal=float(i['subtotal'])-descuento
-                )
-            else:
-                item = BuyItem.objects.create(
                     buy=buy,
-                    book=book,
                     quantity=i['quantity'],
-                    price=i['price'],
-                    subtotal=i['subtotal']
+                    price=i['price']
                 )
-            
-            book.stock -= item.quantity
-            book.save()
-        
+
+                book.stock -= item.quantity
+                book.save()
+            except Book.DoesNotExist:
+                return Response({'message': 'Book does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+
         serializer = BuySerializer(buy, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
-        return Response({'mesaje': sum_of_prices}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'mensaje': sum_of_prices}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 #@permission_classes([IsAuthenticated])

@@ -6,8 +6,8 @@ from django.utils import timezone
 
 class Buy(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    date = models.DateTimeField(auto_now_add=True)
-    total_price = models.FloatField()
+    buy_date = models.DateTimeField(auto_now_add=True)
+    total_price = models.FloatField(default=0)
     
 class BuyItem(models.Model):
     buy = models.ForeignKey(Buy, on_delete=models.SET_NULL, null=True)
@@ -15,4 +15,3 @@ class BuyItem(models.Model):
     quantity = models.IntegerField(default=0)
     price = models.FloatField()
     
- 
