@@ -11,30 +11,24 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('books', '0001_initial'),
-        ('promos', '0001_initial'),
-        ('sales', '0001_initial'),
+        ('buys', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='sale',
+            model_name='buy',
             name='user',
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
-            model_name='saleitem',
+            model_name='buyitem',
             name='book',
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='books.book'),
         ),
         migrations.AddField(
-            model_name='saleitem',
-            name='promo',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='promos.promotion'),
-        ),
-        migrations.AddField(
-            model_name='saleitem',
-            name='sale',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='sales.sale'),
+            model_name='buyitem',
+            name='buy',
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='buys.buy'),
         ),
     ]
