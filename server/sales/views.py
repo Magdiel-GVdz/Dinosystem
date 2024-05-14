@@ -37,32 +37,32 @@ def create_sale(request):
         user = request.user
         data = request.data
 
-        if 'saleItems' not in data or 'total_price' not in data:
+        if 'saleItems' not in data:
             return Response(
                 {'message': 'Malformed request.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
         saleItems = data['saleItems']
-        total_price = data['total_price']
+        total_price = 0
 
-        if not saleItems or not total_price:
+        if not saleItems:
             return Response(
                 {'message': 'Malformed request.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        sum_of_prices = sum(float(item['price']) * item['quantity'] for item in saleItems)
+        # sum_of_prices = sum(float(item['price']) * item['quantity'] for item in saleItems)
 
-        if total_price != sum_of_prices:
-            return Response(
-                {'message': 'Total price does not match the sum of prices.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        # if total_price != sum_of_prices:
+        #     return Response(
+        #         {'message': 'Total price does not match the sum of prices.'},
+        #         status=status.HTTP_400_BAD_REQUEST
+        #     )
 
         sale = Sale.objects.create(
             user=user,
-            total_price=total_price
+            total_price=0
         )
 
         for item in saleItems:
@@ -76,30 +76,34 @@ def create_sale(request):
 
             try:
                 
-                promotion = Promotion.objects.filter(
+                promotions = Promotion.objects.filter(
                     book=book,
                     start_date__lte=datetime.now(),
                     end_date__gte=datetime.now()
-                ).first()
-                
-                if promotion:
-                    descuento = (promotion.discount/100)*float(item['price'])
+                )
+                total_price=0
+                if promotions.exists():
+                    promotion = promotions.first()
+                    descuento = (promotion.discount/100)*book.price
                     new_item = SaleItem.objects.create(
                         sale=sale,
                         book=book,
                         quantity=item['quantity'],
-                        price=float(item['price']),
-                        subtotal=float(item['price'])-descuento,
+                        price=book.price,
+                        subtotal=descuento * item['quantity'],
                         promo=promotion
                     )
+                    total_price += (descuento * item['quantity'])
                 else:
                     new_item = SaleItem.objects.create(
                         sale=sale,
                         book=book,
                         quantity=item['quantity'],
-                        price=item['price'],
-                        subtotal=item['subtotal']
+                        price=book.price,
+                        subtotal=book.price * item['quantity']
                     )
+                    total_price += book.price * item['quantity']
+                
                 
             except IntegrityError:
                 return Response(
@@ -113,6 +117,8 @@ def create_sale(request):
                  status=status.HTTP_400_BAD_REQUEST
                 )
 
+            sale.total_price += total_price
+            sale.save()
             book.stock -= new_item.quantity
             book.save()
 

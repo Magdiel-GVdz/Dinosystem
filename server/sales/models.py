@@ -5,7 +5,7 @@ from promos.models import Promotion
 
 class Sale(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    sale_date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     total_price = models.FloatField()
     
 class SaleItem(models.Model):
@@ -14,6 +14,6 @@ class SaleItem(models.Model):
     quantity = models.IntegerField(default=0)
     price = models.FloatField()
     subtotal = models.FloatField()
-    promo = models.ForeignKey(Promotion, on_delete=models.SET_NULL, null=True)
+    promo = models.ForeignKey(Promotion, on_delete=models.SET_NULL, null=True, blank=True)
     
     

@@ -3,6 +3,7 @@ from .models import Sale, SaleItem
 
 class SaleItemSerializer(serializers.ModelSerializer):
     book = serializers.ReadOnlyField(source='book.title')
+    promo = serializers.ReadOnlyField(source='promo.code')
     class Meta:
         model = SaleItem
         fields = '__all__'
