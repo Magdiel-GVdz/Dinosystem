@@ -3,10 +3,9 @@ from users.models import User
 from books.models import Book
 from promos.models import Promotion
 
-
 class Sale(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    date = models.DateTimeField(auto_now_add=True)
+    sale_date = models.DateTimeField(auto_now_add=True)
     total_price = models.FloatField()
     
 class SaleItem(models.Model):
