@@ -122,8 +122,11 @@ export default function GenerosTable() {
               setSelectedRow(null);
             }}
             handleAccept={() => {
-              deleteGenre(selectedRow.id);
-              setSelectedRow(null);
+              deleteGenre(selectedRow.id).then(() => {
+                getGenres().then((newData) => setData(newData));
+                setOpenConfirmDeleteModal(false);
+                setSelectedRow(null);
+              });
             }}
           />
 
