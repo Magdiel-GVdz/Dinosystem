@@ -37,22 +37,19 @@ export const useBuys = () => {
     const createBuy = async (data) => {
 
         try {
-            const response = await axios.post("http://localhost:8000/api/v1/buys/create", data)
-            if (!response) {
-                console.error("Unexpected null response from server")
-                return []
-            }
-            const { data } = response
-            if (!data) {
+            const response = await axios.post("http://localhost:8000/api/v1/buys/create/", data)
+            const { data: serverData } = response || {}
+            if (!serverData) {
                 console.error("Unexpected null data from server")
                 return []
             }
-            return data
+            return serverData
         } catch (error) {
             console.error("Error creating buy:", error)
             return []
         }
     }
+
 
     const myBuys = async () => {
 

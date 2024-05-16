@@ -23,14 +23,15 @@ const BuyProvider = ({ children }) => {
   // }
   const [buyState, setBuyState] = useState([]
   );
-  const [bookToBuy, setBookToBuy] = useState({
-    barcode: "",
-    quantity: 0,
-    price: 0.0,
-  });
+  const [bookToBuy, setBookToBuy] = useState();
 
-  const addBookToBuy = ({ barcode, quantity, price }) => {
-    setBookToBuy({ barcode, quantity, price });
+  const addBookToBuy = ({ barcode, title, quantity, price }) => {
+    if (barcode && title && quantity && price) {
+      setBookToBuy({ barcode, title, quantity, price });
+    }
+    else {
+      setBookToBuy(null);
+    }
   };
 
   const addBookToBuyState = () => {
@@ -42,6 +43,10 @@ const BuyProvider = ({ children }) => {
       buyState.filter((book) => book.barcode !== barcode)
     );
   };
+
+  const resetBuyState = () => {
+    setBuyState([]);
+  }
 
   const buyBook = async () => {
     try {
@@ -60,7 +65,7 @@ const BuyProvider = ({ children }) => {
 
   return (
     <BuyContext.Provider
-      value={{ buyState, bookToBuy, addBookToBuy, addBookToBuyState, removeBookToBuy, buyBook }}
+      value={{ buyState, bookToBuy, addBookToBuy, addBookToBuyState, removeBookToBuy, buyBook, resetBuyState }}
     >
       {children}
     </BuyContext.Provider>

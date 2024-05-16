@@ -14,7 +14,7 @@ const ComprasForm = () => {
   const { getBooks, getBook } = useBook();
   const { control, handleSubmit } = useForm();
   const [books, setBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [selectedBook, setSelectedBook] = useState();
 
   const {
     buyState,
@@ -23,68 +23,81 @@ const ComprasForm = () => {
     addBookToBuyState,
     removeBookToBuy,
     buyBook,
-  } = useContextBuy() || {};
+  } = useContextBuy();
 
   useEffect(() => {
     getBooks().then((newData) => setBooks(newData));
-    if (bookToBuy) {
-      console.log(bookToBuy);
-      if (bookToBuy.barcode) {
-        getBook(bookToBuy.barcode).then((newData) => setSelectedBook(newData));
-      } else {
-        console.error("Error getting book with id undefined");
-      }
-    }
-  }, [bookToBuy]);
+  }, []);
 
   const onSuccess = handleSubmit(async (data) => {
-    console.log(data);
-    if (data && data.barcode) {
-      await addBookToBuy(data.barcode.value, data.quantity, data.price);
-      console.log(data.barcode.value, data.quantity, data.price);
-    }
-    console.log(bookToBuy);
+    getBook(data.barcode.value).then((newData) => {
+      const barcode = data.barcode.value
+      const title = newData.title
+      const quantity = data.quantity
+      const price = data.price
+
+      addBookToBuy({barcode, title, quantity, price})
+      console.log(barcode)
+      console.log(title);
+      console.log(quantity);
+      console.log(price);
+    })
   });
   return (
     <div>
       <FormContainer onSuccess={onSuccess}>
-        <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
-          <AutocompleteElement
-            control={control}
-            required
-            name="barcode"
-            label="Codigo de barras"
-            options={books.map((book) => ({
-              label: book.barcode,
-              value: book.barcode,
-              id: book.barcode,
-            }))}
-          />
-          <TextFieldElement
-            control={control}
-            required
-            name="quantity"
-            label="Cantidad"
-            type="number"
-            defaultValue={1}
-          />
-          <TextFieldElement
-            control={control}
-            required
-            name="price"
-            label="Precio"
-            type="number"
-          />
-          <Button variant="contained" type="submit">
-            Añadir
-          </Button>
+        <Stack spacing={2} justifyContent="center" alignContent="center">
+          <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
+            <AutocompleteElement
+              control={control}
+              required
+              name="barcode"
+              label="Codigo de barras"
+              options={books.map((book) => ({
+                label: book.barcode,
+                value: book.barcode,
+                id: book.barcode,
+              }))}
+            />
+            <TextFieldElement
+              control={control}
+              required
+              name="quantity"
+              label="Cantidad"
+              type="number"
+              defaultValue={1}
+            />
+            <TextFieldElement
+              control={control}
+              required
+              name="price"
+              label="Precio"
+              type="number"
+            />
+            <Button variant="contained" type="submit">
+              Añadir
+            </Button>
+          </Stack>
+          {bookToBuy != null && (
+            <>
+              <Typography variant="p" mt={2}>
+                Libro a comprar: {bookToBuy.title}
+              </Typography>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  console.log("bookToBuy:", bookToBuy);
+                  addBookToBuyState()
+                  addBookToBuy(null)
+                
+                }}
+              >
+                Aceptar
+              </Button>
+            </>
+          )}
         </Stack>
       </FormContainer>
-      {selectedBook && (
-        <Typography variant="h6" mt={2}>
-          Libro a comprar: {selectedBook.title}
-        </Typography>
-      )}
     </div>
   );
 };
