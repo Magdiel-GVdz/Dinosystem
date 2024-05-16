@@ -46,6 +46,7 @@ export default function LibrosTable() {
   const [openConfirmEditModal, setOpenConfirmEditModal] = useState(false);
   const [newData, setNewData] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null); // Estado para la fila seleccionada
+  const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);
   const [authors, setAuthors] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const [genres, setGenres] = useState([]);
@@ -75,6 +76,12 @@ export default function LibrosTable() {
     console.log("Editar fila:", selectedRow);
     setOpenEditModal(true);
   };
+
+  const handleDeleteButtonClick = () => {
+    console.log("Eliminar fila:", selectedRow);
+    setOpenConfirmDeleteModal(true);
+  };
+
 
   return (
     <>
@@ -128,6 +135,29 @@ export default function LibrosTable() {
 
       {selectedRow && ( // Mostrar el botón de editar si hay una fila seleccionada
         <>
+        <Button onClick={handleDeleteButtonClick} color="secondary">
+            Eliminar
+          </Button>
+
+          <ConfirmModal
+            open={openConfirmDeleteModal}
+            handleClose={() => {
+              setOpenConfirmDeleteModal(false);
+              setSelectedRow(null);
+            }}
+            handleCancel={() => {
+              setOpenConfirmDeleteModal(false);
+              setSelectedRow(null);
+            }}
+            handleAccept={() => {
+              deleteBook(selectedRow.barcode).then(() => {
+                getBooks().then((newData) => setData(newData));
+                setOpenConfirmDeleteModal(false);
+                setSelectedRow(null);
+              });
+            }}
+          />
+
           <EditLibroModal/>
           
           
