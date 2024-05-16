@@ -1,84 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, Button } from '@mui/material';
-import { useBook } from '../../hooks/useBook';
-import { usePromo } from '../../hooks/usePromo';
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TextField,
+  Button,
+  TablePagination,
+} from "@mui/material";
+import { useBook } from "../../hooks/useBook";
+import { usePromo } from "../../hooks/usePromo";
 
-function TemporalTable() {
-  // Estado para almacenar la información temporal
+const ComprasTable = () => {
   const [data, setData] = useState([]);
-  const [nombre, setNombre] = useState('');
-  const { getBook } = useBook();
-  const {getBooks } = usePromo();
-  const [book, setBook] = useState([]);
+  const [page, setPage] = useState(0); // Estado para controlar la página actual
+  const [rowsPerPage, setRowsPerPage] = useState(5); 
 
-  useEffect(() => {
-    getBook().then((newData) => setBook(newData));
-  },[]);
-  
-  // Función para agregar un nuevo elemento a la tabla
-  const agregarElemento = () => {
-    const nuevoElemento = {
-      id: data.length + 1,
-      nombre: nombre,
-      titulo: book.title,
-      cantidad: 0,
-      precio: data.price,
-      descuento: data.discount,
-      subtotal: data.price * (1 - (data.discount / 100)),
-      // Otras propiedades...
-    };
-
-
-    // Actualizamos el estado agregando el nuevo elemento al final del array
-    setData([...data, nuevoElemento]);
-    // Limpiamos el campo de nombre después de agregar el elemento
-    setNombre('');
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Resetear la página a 0 cuando se cambia el número de filas por página
+  };
+
+
   return (
-    <div>
-      <form onSubmit={(e) => { e.preventDefault(); agregarElemento(); }}>
-        <TextField
-          label="Nombre"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          variant="outlined"
-          margin="normal"
-        />
-        <Button type="submit" variant="contained" color="primary">Agregar Elemento</Button>
-      </form>
+    <>
       <TableContainer component={Paper}>
-        <Table>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              
-              <TableCell>cantidad</TableCell>
-              <TableCell>titulo</TableCell>
-              <TableCell>precio</TableCell>
-              <TableCell>descuento</TableCell>
-              <TableCell>subtotal</TableCell>
-              {/* Añade aquí más encabezados si lo necesitas */}
+              <TableCell>Libro</TableCell>
+              <TableCell>Precio unitario</TableCell>
+              <TableCell>Cantidad</TableCell>
+              <TableCell>Subtotal</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {/* Iteramos sobre los elementos en el estado para renderizar las filas */}
-            {data.map((elemento) => (
-              <TableRow key={elemento.barcode}>
-
-                <TableCell>{elemento.cantidad}</TableCell>
-                <TableCell>{elemento.titulo}</TableCell>
-                <TableCell>{elemento.precio}</TableCell>
-                <TableCell>{elemento.descuento}</TableCell>
-                <TableCell>{elemento.subtotal}</TableCell>
-                
-                {/* Renderiza más celdas si hay más propiedades en el objeto */}
-              </TableRow>
-            ))}
-          </TableBody>
+          <TableBody></TableBody>
         </Table>
       </TableContainer>
-    </div>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+        component="div"
+        count={data.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </>
   );
-}
+};
 
-export default TemporalTable;
+export default ComprasTable;

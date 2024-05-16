@@ -74,5 +74,5 @@ export const useBuys = () => {
         }
     }
     
-    return { getBuys }
+    return { getBuys, getBuy, createBuy, myBuys }
 }
