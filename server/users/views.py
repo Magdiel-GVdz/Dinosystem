@@ -97,8 +97,6 @@ class UserView(APIView):
         except User.DoesNotExist:
             return None
 
-    
-    
 class SuperUserView(APIView):
    # authentication_classes = (JWTAuthentication,)
     #permission_classes = (IsAuthenticated,)
