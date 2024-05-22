@@ -62,8 +62,16 @@ const LoginForm = () => {
             required
             fullWidth
             sx={{
+              backgroundColor: " white",
               
-              
+              borderBlockColor: "green",
+              color: "white",
+              fontFamily: "Arial",
+              borderRadius: "20px",
+              "&:hover": {
+                backgroundColor: "grey",
+               
+              }
             }}
           />
           <PasswordElement
@@ -73,10 +81,15 @@ const LoginForm = () => {
             control={control}
             required
             sx={{
-              borderBlockColor: "#0C130C",
+              backgroundColor: " white",
+              borderBlockColor: "green",
               color: "white",
               fontFamily: "Arial",
-              borderRadius: "15px",
+              borderRadius: "20px",
+              "&:hover": {
+                backgroundColor: "grey",
+               
+              }
             }}
           />
           <Button

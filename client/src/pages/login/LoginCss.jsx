@@ -74,7 +74,7 @@ export function SxProp2() {
         style={{
           width: "650px",
           height: "450px",
-          position: "absolute",
+          position: "absolute" ,
           top: "250px",
           left: "780px",
           borderRadius: "2.5%",
