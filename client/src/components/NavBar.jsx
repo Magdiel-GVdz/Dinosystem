@@ -20,9 +20,18 @@ const NavBar = () => {
   }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1,
+      backgroundColor:"green",
+      "&:hover": {
+        backgroundColor: "#143012",
+       borderBlockColor: "green",
+       
+      }
+     }}>
       {isAuthenticated && (
-        <AppBar position="fixed">
+        <AppBar position="fixed" sx={{backgroundColor:"#143012",
+
+        }}>
           <Toolbar>
             <Typography variant="h6">DinoSystem</Typography>
             <Typography variant="h6" sx={{ flexGrow: 1 }}></Typography>
