@@ -2,7 +2,7 @@
 from datetime import timedelta
 from pathlib import Path
 import os
-
+juanca = False
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,7 +11,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+if(juanca):
+    SECRET_KEY='django-insecure-trhv4um3a24sl$1@@kb#v=_y=tj!rqo*@)jxj629b$mq6uo3bd'
+else:
+    SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -85,16 +88,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "USER": os.environ.get("PG_USER"),
-        "NAME": os.environ.get("PG_NAME"),
-        "PASSWORD": os.environ.get("PG_PASSWORD"),
-        "HOST": os.environ.get("PG_HOST"),
-        "PORT": os.environ.get("PG_PORT"),
-    },
-}
+if(juanca):
+    DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.sqlite3',  
+        'NAME': 'mydatabase',  
+    }  
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "USER": os.environ.get("PG_USER"),
+            "NAME": os.environ.get("PG_NAME"),
+            "PASSWORD": os.environ.get("PG_PASSWORD"),
+            "HOST": os.environ.get("PG_HOST"),
+            "PORT": os.environ.get("PG_PORT"),
+        },
+    }
 
 
 # Password validation
