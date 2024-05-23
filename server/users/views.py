@@ -23,7 +23,7 @@ class UserView(APIView):
     crear, editar y eliminar usuarios.
     """
 
-   # authentication_classes = (JWTAuthentication,)
+    #authentication_classes = (JWTAuthentication,)
    # permission_classes = (IsAuthenticated,)
 
     def post(self, request):
@@ -97,8 +97,6 @@ class UserView(APIView):
         except User.DoesNotExist:
             return None
 
-    
-    
 class SuperUserView(APIView):
    # authentication_classes = (JWTAuthentication,)
     #permission_classes = (IsAuthenticated,)

@@ -1,11 +1,10 @@
 from django.urls import path
-from .views import (
-    PurchaseListCreateAPIView,
-)
+from . import views
 
 urlpatterns = [
-    path('', PurchaseListCreateAPIView.as_view()),
-    # path('<int:pk>/', BuyGeneralDetailView.as_view()),
-    # path('detail/', BuyDetailListView.as_view()),
-    # path('detail/<int:pk>/', BuyDetailView.as_view()),
+    path('', views.get_buys),
+    path('search/', views.search),
+    path('create/', views.create_buy),
+    path('my/buys/', views.my_buys),
+    path('solo/<int:pk>/', views.solo_buys),
 ]

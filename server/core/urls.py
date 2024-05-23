@@ -24,6 +24,9 @@ urlpatterns = [
     path('api/v1/', include('books.urls')),
     path('api/v1/promos/', include('promos.urls')),
     path('api/v1/buys/', include('buys.urls')),
+    path('api/v1/sales/', include('sales.urls')),
+    path('api/v1/donations/', include('donations.urls')),
+    path('api/v1/losses/', include('losses.urls')),
     
     
     path('docs/', include_docs_urls('Dinosystem')),
