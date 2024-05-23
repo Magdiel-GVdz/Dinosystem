@@ -10,6 +10,7 @@ import { useUser } from "../../hooks/useUser";
 import { Button, TablePagination } from "@mui/material";
 import EditModal from "../../components/EditModal";
 import ConfirmModal from "../../components/ConfirmModal";
+import { Style } from "@mui/icons-material";
 export default function PromocionesTable() {
   const [page, setPage] = useState(0); // Estado para controlar la página actual
   const [rowsPerPage, setRowsPerPage] = useState(5); // Estado para controlar las filas por página
