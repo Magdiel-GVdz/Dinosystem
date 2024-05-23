@@ -47,6 +47,20 @@ export const useUser = () => {
         }
       }
 
+      const postSuperUsers = async (user) => {
+        try {
+          const response = await axios.post(
+            "http://localhost:8000/api/v1/users/superuser/",
+            user
+          );
+          const { data } = response || {};
+          return data || {};
+        } catch (error) {
+          console.error("Error posting user:", error);
+          return {};
+        }
+      }
+
       const updateUser = async (user) => {
         try {
           const response = await axios.patch(
@@ -60,13 +74,16 @@ export const useUser = () => {
           return {};
         }
       };
+
+      
     
 
     return {
         getUsers,
         getUser,
         postUsers,
-        updateUser
+        updateUser,
+        postSuperUsers
     }
 
 
