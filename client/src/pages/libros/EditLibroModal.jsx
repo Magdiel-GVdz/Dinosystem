@@ -6,6 +6,7 @@ const EditLibroModal = () => {
     const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  
   return (
     <>
       <Button onClick={handleOpen}>Editar libro</Button>

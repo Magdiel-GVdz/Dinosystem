@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 
 import { useBook } from "../../hooks/useBook";
 import EditModal from "../../components/EditModal";
-
+import EditLibroModal from "./EditLibroModal";
 function transformarFormato(entrada) {
     // Mapear los IDs de autores y categorías
     const autoresIDs = entrada.authors.map((author) => author.id);
@@ -46,6 +46,7 @@ export default function LibrosTable() {
   const [openConfirmEditModal, setOpenConfirmEditModal] = useState(false);
   const [newData, setNewData] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null); // Estado para la fila seleccionada
+  const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);
   const [authors, setAuthors] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const [genres, setGenres] = useState([]);
@@ -75,6 +76,12 @@ export default function LibrosTable() {
     console.log("Editar fila:", selectedRow);
     setOpenEditModal(true);
   };
+
+  const handleDeleteButtonClick = () => {
+    console.log("Eliminar fila:", selectedRow);
+    setOpenConfirmDeleteModal(true);
+  };
+
 
   return (
     <>
@@ -128,43 +135,32 @@ export default function LibrosTable() {
 
       {selectedRow && ( // Mostrar el botón de editar si hay una fila seleccionada
         <>
-          <Button onClick={handleEditButtonClick} color="primary">
-            Editar
+        <Button onClick={handleDeleteButtonClick} color="secondary">
+            Eliminar
           </Button>
-          
 
           <ConfirmModal
-            open={openConfirmEditModal}
+            open={openConfirmDeleteModal}
             handleClose={() => {
-              setOpenConfirmEditModal(false);
+              setOpenConfirmDeleteModal(false);
               setSelectedRow(null);
             }}
             handleCancel={() => {
-              setOpenConfirmEditModal(false);
+              setOpenConfirmDeleteModal(false);
               setSelectedRow(null);
             }}
-            
             handleAccept={() => {
-              setOpenConfirmEditModal(false);
-              updateBook({ barcode: selectedRow.barcode , title: newData});
-              setSelectedRow(null);
+              deleteBook(selectedRow.barcode).then(() => {
+                getBooks().then((newData) => setData(newData));
+                setOpenConfirmDeleteModal(false);
+                setSelectedRow(null);
+              });
             }}
           />
 
-            <EditModal
-              open={openEditModal}
-              handleClose={() => setOpenEditModal(false)}
-              handleCancel={() => setOpenEditModal(false)}
-              handleAccept={(e) => {
-                console.log(e.name);
-                console.log(selectedRow.title);
-                setOpenConfirmEditModal(true);
-                setOpenEditModal(false);
-                setNewData(e.name);
-              }}
-              value={selectedRow.title}
-              label={"titulo Libro"}
-            />
+          <EditLibroModal/>
+          
+          
         </>
       )}
     </>

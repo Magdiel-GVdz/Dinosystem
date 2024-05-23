@@ -6,11 +6,8 @@ import {
   TextFieldElement,
   useForm,
 } from "react-hook-form-mui";
-import NuevoAutoresModal from "./NuevoAutoresModal";
-import NuevoGeneroModal from "./NuevoGeneroModal";
-import NuevoEditorialModal from "./NuevoEditorialModal";
 import { useBook } from "../../hooks/useBook";
-import { generatePath } from "react-router-dom";
+
 
 function transformarFormato(entrada) {
   // Mapear los IDs de autores y categorías
@@ -39,7 +36,7 @@ function EditFormBook() {
   const [publishers, setPublishers] = useState([]);
   const [genres, setGenres] = useState([]);
 
-  const { getAuthors, getPublishers, getGenres, postBook, postAuthor, postGenre, postPublisher, updateBook } = useBook();
+  const { getAuthors, getPublishers, getGenres, updateBook } = useBook();
 
   useEffect(() => {
     getAuthors().then((newData) => setAuthors(newData));
@@ -56,11 +53,11 @@ function EditFormBook() {
     console.log(data);
     updateBook(data)
       .then(() => {
-        console.log("se agrego el libro");
+        console.log("se edito el libro");
       })
       .catch((error) => {
         console.error(error);
-        console.log("no se agrego el libro");
+        console.log("no se edito el libro");
       });
   });
 
@@ -68,7 +65,7 @@ function EditFormBook() {
     <>
       <FormContainer onSuccess={onSuccess}>
         <Stack spacing={2}>
-          <Typography variant="h6">Nuevo Libro</Typography>
+          <Typography variant="h6">Editar Libro</Typography>
           <TextFieldElement
             name="title"
             label="Titulo del Libro"
@@ -130,13 +127,11 @@ function EditFormBook() {
             }))}
           />
           <Button variant="contained" type="submit">
-            Añadir
+            editar
           </Button>
         </Stack>
       </FormContainer>
-      <NuevoEditorialModal />
-      <NuevoAutoresModal />
-      <NuevoGeneroModal />
+      
     </>
   );
 }
