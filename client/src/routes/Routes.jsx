@@ -12,7 +12,8 @@ import LibrosPage from "../pages/libros/LibrosPage";
 import LoginPage from "../pages/login/LoginPage";
 import MermasPage from "../pages/mermas/MermasPage";
 import PromocionesPage from "../pages/promociones/PromocionesPage";
-import ReportesPage from "../pages/reportes/ReportesPage";
+import ReportesVentasPage from "../pages/reportesVentas/ReportesVentasPage";
+import ReportesInventarioPage from "../pages/reportesInventario/ReportesInventarioPage";
 import UsuariosPage from "../pages/usuarios/UsuariosPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import AutoresPage from "../pages/autores/AutoresPage";
@@ -81,8 +82,12 @@ const Routes = () => {
           element: <PromocionesPage />,
         },
         {
-          path: "/reportes",
-          element: <ReportesPage />,
+          path: "/reportesVentas",
+          element: <ReportesVentasPage />,
+        },
+        {
+          path: "/reportesInventario",
+          element: <ReportesInventarioPage />,
         },
         {
           path: "/usuarios",

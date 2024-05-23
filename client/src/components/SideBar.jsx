@@ -22,11 +22,16 @@ const SideBar = () => {
             <MenuItem component={<Link to="/generos" />}>DinoGeneros</MenuItem>
           </SubMenu>
 
+
           <MenuItem component={<Link to="/promociones" />}>
             DinoPromociones
           </MenuItem>
           <MenuItem component={<Link to="/mermas" />}>DinoMermas</MenuItem>
-          <MenuItem component={<Link to="/reportes" />}>DinoReporte</MenuItem>
+          <SubMenu label="DinoReportes">
+            <MenuItem component={<Link to="/reportesVentas" />}>DinoVentas</MenuItem>
+            <MenuItem component={<Link to="/reportesInventario" />}>DinoInventario</MenuItem>
+      
+          </SubMenu>
           <MenuItem component={<Link to="/donaciones" />}>
             DinoDonaciones
           </MenuItem>
