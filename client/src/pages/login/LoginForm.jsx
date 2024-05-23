@@ -62,14 +62,16 @@ const LoginForm = () => {
             required
             fullWidth
             sx={{
-              backgroundColor: " white",
+              backgroundColor: " #A99E9E",
               
-              borderBlockColor: "green",
+              borderColor: "green",
+              borderBlockStyle: "green" ,
               color: "white",
               fontFamily: "Arial",
               borderRadius: "20px",
               "&:hover": {
-                backgroundColor: "grey",
+                backgroundColor: "#A9A3A3",
+               borderBlockColor: "green",
                
               }
             }}
@@ -81,13 +83,13 @@ const LoginForm = () => {
             control={control}
             required
             sx={{
-              backgroundColor: " white",
+              backgroundColor: " #A99E9E",
               borderBlockColor: "green",
               color: "white",
               fontFamily: "Arial",
               borderRadius: "20px",
               "&:hover": {
-                backgroundColor: "grey",
+                backgroundColor: "#A9A3A3",
                
               }
             }}
