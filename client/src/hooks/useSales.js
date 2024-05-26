@@ -17,7 +17,7 @@ export const useSales = () => {
             }
             return data
         } catch (error) {
-            console.error("Error getting buys:", error)
+            console.error("Error getting sales:", error)
             return []
         }
     }
@@ -29,7 +29,7 @@ export const useSales = () => {
             const { data } = response || {}
             return data || {}
         } catch (error) {
-            console.error(`Error getting buy with id ${id}:`, error)
+            console.error(`Error getting sale with id ${id}:`, error)
             return {}
         }
     }
@@ -45,7 +45,7 @@ export const useSales = () => {
             }
             return serverData
         } catch (error) {
-            console.error("Error creating buy:", error)
+            console.error("Error creating sale:", error)
             return []
         }
     }
@@ -66,7 +66,7 @@ export const useSales = () => {
             }
             return data
         } catch (error) {
-            console.error("Error getting my buys:", error)
+            console.error("Error getting my sales:", error)
             return []
         }
     }
