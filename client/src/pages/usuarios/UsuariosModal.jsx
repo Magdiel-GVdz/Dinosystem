@@ -8,7 +8,7 @@ const UsuarisoModal = () => {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <Button onClick={handleOpen}>Nuevo Usuario</Button>
+      <Button onClick={handleOpen}>Nuevo Empleado</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -34,7 +34,7 @@ const UsuarisoModal = () => {
         
       </Modal>
 
-      <Button onClick={handleOpen}>Nuevo Super Usuario</Button>
+      <Button onClick={handleOpen}>Nuevo Gerente</Button>
       <Modal
         open={open}
         onClose={handleClose}

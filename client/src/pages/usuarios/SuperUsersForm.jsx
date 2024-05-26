@@ -56,7 +56,7 @@ function SuperUsersForm() {
     <>
       <FormContainer onSuccess={onSuccess}>
         <Stack spacing={2}>
-          <Typography variant="h6">Nuevo SuperUsuario</Typography>
+          <Typography variant="h6">Nuevo Gerente</Typography>
           <TextFieldElement
             name="email"
             label="Correo"
