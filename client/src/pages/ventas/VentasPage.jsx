@@ -1,12 +1,15 @@
 import React from "react";
 import VentasTable from "./VentasTable";
 import VentasForm from "./VentasForm";
+import VentasProvider from "../../provider/VentasProvider";
 const VentasPage = () => {
   return (
     <div>
-      VentasPage
-      {/* <VentasTable />
-      <VentasForm /> */}
+    ventasPage
+    <VentasProvider>
+      <VentasForm />
+      <VentasTable />
+    </VentasProvider>
     </div>
   );
 };
