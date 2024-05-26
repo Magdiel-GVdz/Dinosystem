@@ -21,15 +21,13 @@ const BuyProvider = ({ children }) => {
   //   ],
   //   "total_price": 0.00
   // }
-  const [buyState, setBuyState] = useState([]
-  );
+  const [buyState, setBuyState] = useState([]);
   const [bookToBuy, setBookToBuy] = useState();
 
   const addBookToBuy = ({ barcode, title, quantity, price }) => {
     if (barcode && title && quantity && price) {
       setBookToBuy({ barcode, title, quantity, price });
-    }
-    else {
+    } else {
       setBookToBuy(null);
     }
   };
@@ -39,14 +37,12 @@ const BuyProvider = ({ children }) => {
   };
 
   const removeBookToBuy = (barcode) => {
-    setBuyState(
-      buyState.filter((book) => book.barcode !== barcode)
-    );
+    setBuyState(buyState.filter((book) => book.barcode !== barcode));
   };
 
   const resetBuyState = () => {
     setBuyState([]);
-  }
+  };
 
   const buyBook = async () => {
     try {
@@ -54,18 +50,31 @@ const BuyProvider = ({ children }) => {
         throw new Error("No books to buy");
       }
 
-      const totalPrice = buyState.reduce((total, book) => total + (book.price * book.quantity), 0);
-      const response = await createBuy({ buyItems: buyState, total_price: totalPrice });
+      const totalPrice = buyState.reduce(
+        (total, book) => total + book.price * book.quantity,
+        0
+      );
+      const response = await createBuy({
+        buyItems: buyState,
+        total_price: totalPrice,
+      });
       return response;
     } catch (error) {
       console.error("An error occurred while buying the book:", error);
-      
     }
   };
 
   return (
     <BuyContext.Provider
-      value={{ buyState, bookToBuy, addBookToBuy, addBookToBuyState, removeBookToBuy, buyBook, resetBuyState }}
+      value={{
+        buyState,
+        bookToBuy,
+        addBookToBuy,
+        addBookToBuyState,
+        removeBookToBuy,
+        buyBook,
+        resetBuyState,
+      }}
     >
       {children}
     </BuyContext.Provider>

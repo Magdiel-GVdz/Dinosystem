@@ -75,6 +75,14 @@ const ComprasTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
+        <Table>    
+            <TableBody>
+              <TableRow>
+                <TableCell>Total</TableCell>
+                <TableCell>{buyState.length > 0 ? buyState.reduce((total, book) => total + (book.price * book.quantity), 0) : 0}</TableCell>
+              </TableRow>
+            </TableBody>
+        </Table>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
         component="div"
