@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form-mui";
 import { DateTimePickerElement } from "react-hook-form-mui/date-pickers";
 
+
 const ReportesVentasPage = () => {
 const { control } = useForm();
   return (
@@ -23,7 +24,7 @@ const { control } = useForm();
           />
 
 
-
+      
 
     </div>
 
