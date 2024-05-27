@@ -39,7 +39,7 @@ const SaleProvider = ({ children }) => {
         0
       );
       const response = await createSale({
-        sellItems: saleState,
+        saleItems: saleState,
         total_price: totalPrice,
       });
       return response;
