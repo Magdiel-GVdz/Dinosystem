@@ -8,7 +8,7 @@ import {
 import { useLosses } from "../../hooks/useLosses";
 import { useBook } from "../../hooks/useBook";
 import { Button, Stack, Typography } from "@mui/material";
-import { useContextLosses } from "../../provider/LossesProvider";
+import {useContextLosses } from "../../provider/LossesProvider";
 
 const MermasForm = () => {
   const { getBooks, getBook } = useBook();
@@ -28,21 +28,35 @@ const MermasForm = () => {
     getBooks().then((newData) => setBooks(newData));
   }, []);
 
-  const onSubmit = handleSubmit(async (data) => {
-    const { barcode, quantity, reason } = data;
-    const book = books.find((book) => book.barcode === barcode);
-    const newData = {
-      barcode,
-      title: book.title,
-      quantity,
-      reason,
-    };
-    addBookToLoss(newData);
+  // const onSuccess = handleSubmit(async (data) => {
+  //   const { barcode, quantity, reason } = data;
+  //   const book = books.find((book) => book.barcode === barcode);
+  //   const newData = {
+  //     barcode,
+  //     title: book.title,
+  //     quantity,
+  //     reason,
+  //   };
+  //   addBookToLoss(newData);
+  // });
+  const onSuccess = handleSubmit(async (data) => {
+    getBook(data.barcode.value).then((newData) => {
+      const barcode = data.barcode.value
+      const title = newData.title
+      const quantity = data.quantity
+      const reason = data.reason
+
+      addBookToLoss({barcode, title, quantity, reason})
+      console.log(barcode)
+      console.log(title);
+      console.log(quantity);
+      console.log(reason);
+    })
   });
 
   return (
     <div>
-      <FormContainer onSubmit={onSubmit}>
+      <FormContainer onSuccess={onSuccess}>
         <Stack spacing={2} justifyContent="center" alignContent="center">
           <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
             <AutocompleteElement

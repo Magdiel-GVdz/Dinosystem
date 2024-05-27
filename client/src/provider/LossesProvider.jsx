@@ -4,13 +4,13 @@ import { useLosses } from "../hooks/useLosses";
 const LossesContext = createContext();
 
 const LossesProvider = ({ children }) => {
-  const { createLoss } = useLosses();
+  const { createLosse } = useLosses();
   const [lossState, setLossState] = useState([]);
   const [bookToLoss, setBookToLoss] = useState();
 
-  const addBookToLoss = ({ barcode, title, quantity, price }) => {
-    if (barcode && title && quantity && price) {
-      setBookToLoss({ barcode, title, quantity, price });
+  const addBookToLoss = ({ barcode, title, quantity, reason }) => {
+    if (barcode && title && quantity && reason) {
+      setBookToLoss({ barcode, title, quantity , reason });
     } else {
       setBookToLoss(null);
     }
@@ -34,13 +34,14 @@ const LossesProvider = ({ children }) => {
         throw new Error("No books to loss");
       }
 
-      const totalPrice = lossState.reduce(
-        (total, book) => total + book.price * book.quantity,
-        0
+      const reason = lossState.reduce(
+        (book) => book.reason + " ",
+        ""
       );
-      const response = await createLoss({
+
+      const response = await createLosse({
         lossItems: lossState,
-        total_price: totalPrice,
+        reason: reason,
       });
       return response;
     } catch (error) {

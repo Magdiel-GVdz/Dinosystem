@@ -14,7 +14,7 @@ import {
   Stack,
 } from "@mui/material";
 import { useBook } from "../../hooks/useBook";
-import { useContextlosses } from "../../provider/LossesProvider";
+import { useContextLosses } from "../../provider/LossesProvider";
 
 const MermasTable = () => {
   const [data, setData] = useState([]);
@@ -24,12 +24,12 @@ const MermasTable = () => {
   const {
     lossState,
     bookToLoss,
-    addBookToLoss
+    addBookToLoss,
     addBookToLossState,
     removeBookToLoss,
     lossBook,
     resetLossState,
-  } = useContextlosses();
+  } = useContextLosses();
 
   useEffect(() => {
     console.log("data", lossState);
@@ -58,7 +58,7 @@ const MermasTable = () => {
           </TableHead>
           <TableBody>
             {console.log(lossState)}
-            {buyState.map((row) => (
+            {lossState.map((row) => (
               <TableRow
                 key={row.barcode}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -66,7 +66,6 @@ const MermasTable = () => {
                 <TableCell component="th" scope="row">
                   {row.barcode} - {row.title}
                 </TableCell>
-                <TableCell>{row.price}</TableCell>
                 <TableCell>{row.quantity}</TableCell>
                 <TableCell>{row.reason}</TableCell>
               </TableRow>

@@ -1,16 +1,16 @@
 import React from 'react'
-//  import MermasForm from './MermasForm'
-// import MermasTable from './MermasTable'
-// import LossesProvider from '../../provider/LossesProvider'
+ import MermasForm from './MermasForm'
+import MermasTable from './MermasTable'
+import LossesProvider from '../../provider/LossesProvider'
 const MermasPage = () => {
 
   return (
     <div>
       MermasPage
-     {/* <LossesProvider>
+     <LossesProvider>
         <MermasForm />
         <MermasTable />
-      </LossesProvider>  */}
+      </LossesProvider> 
     </div>
   )
 }
