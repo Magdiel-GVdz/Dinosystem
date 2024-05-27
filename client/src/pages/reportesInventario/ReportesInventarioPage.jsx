@@ -1,6 +1,7 @@
 import React from 'react';
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import LibrosTable from '../libros/LibrosTable';
+import { Button } from '@mui/material';
 
 // Opciones de configuración para el PDF
 const options = {
@@ -36,10 +37,10 @@ const ReportesInventarioPage = () => {
   return (
     <div>
       ReportesInventarioPage
-      <button onClick={downloadPdf}>Download PDF</button>
       <div id="libros-table-container">
         <LibrosTable />
       </div>
+      <Button onClick={downloadPdf}>Descargar reporte</Button>
     </div>
   );
 };
