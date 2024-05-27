@@ -1,110 +1,92 @@
 import React, { useState } from 'react';
-import { useForm, Controller } from "react-hook-form-mui";
-import { DateTimePickerElement } from "react-hook-form-mui/date-pickers";
-import { 
-  Container, TextField, Button, Table, TableBody, TableCell, TableContainer, 
-  TableHead, TableRow, Paper, Typography 
-} from '@mui/material';
+import { useSales } from "../../hooks/useSales";
+import { Button, TextField, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const ReportesVentasPage = () => {
-  const { control, getValues } = useForm();
-  const [sales, setSales] = useState([]);
+  const { getSales } = useSales();
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [salesData, setSalesData] = useState([]);
 
-  const fetchSales = () => {
-    const values = getValues();
-    fetch('/sales/fetch-sales-by-date/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken')
-      },
-      body: JSON.stringify({ startDate: values.start_date, endDate: values.end_date })
-    })
-    .then(response => response.json())
-    .then(data => setSales(data));
-  };
-
-  const getCookie = (name) => {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
+  const handleGenerateReport = async () => {
+    try {
+      const data = await getSales();
+      setSalesData(data);
+    } catch (error) {
+      console.error('Error generando el reporte:', error);
     }
-    return cookieValue;
   };
 
-  const handlePrint = () => {
-    window.print();
+  const handleClearReport = () => {
+    setSalesData([]);
+  };
+
+  const handlePrintPDF = () => {
+    const doc = new jsPDF();
+    doc.text('Reporte de Ventas', 10, 10);
+    doc.autoTable({
+      head: [['ID de Venta', 'Vendedor', 'Libros','Cantidad', 'Fecha de Venta', 'Total']],
+      body: salesData.map(sale => [
+        sale.id,
+        sale.user,
+        sale.book,
+        sale.quantity,
+        sale.date,
+        sale.total_price
+      ]),
+    });
+    doc.save('reporte_ventas.pdf');
   };
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Reportes de Ventas</Typography>
-      <form noValidate autoComplete="off">
-        <DateTimePickerElement
-          control={control}
-          name="start_date"
-          views={['day', 'month', 'year', 'hours', 'minutes']}
-          label="Fecha inicio"
-          required
-        />
-        <DateTimePickerElement
-          control={control}
-          name="end_date"
-          views={['day', 'month', 'year', 'hours', 'minutes']}
-          label="Fecha final"
-          required
-        />
-        <Button variant="contained" color="primary" onClick={fetchSales} fullWidth style={{ marginTop: '20px' }}>
-          Buscar
-        </Button>
-      </form>
-      {sales.length > 0 && (
-        <>
-          <TableContainer component={Paper} style={{ marginTop: '20px' }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID Venta</TableCell>
-                  <TableCell>Precio</TableCell>
-                  <TableCell>Libros Vendidos</TableCell>
-                  <TableCell>Fecha de Venta</TableCell>
-                  <TableCell>Nombre del Vendedor</TableCell>
-                  <TableCell>Total de la Compra</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sales.map((sale, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{sale.id}</TableCell>
-                    <TableCell>{sale.precio}</TableCell>
-                    <TableCell>{sale.nombre_libro}</TableCell>
-                    <TableCell>{sale.fecha_venta}</TableCell>
-                    <TableCell>{sale.vendedor}</TableCell>
-                    <TableCell>{sale.total}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Button 
-            variant="contained" 
-            color="secondary" 
-            onClick={handlePrint} 
-            fullWidth 
-            style={{ marginTop: '20px' }}
-          >
-            Imprimir Reporte
-          </Button>
-        </>
-      )}
-    </Container>
+    <div>
+      <h1>Reportes de Ventas</h1>
+      <TextField
+        label="Fecha de inicio"
+        type="date"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
+        sx={{ marginRight: '10px' }}
+      />
+      <TextField
+        label="Fecha de fin"
+        type="date"
+        value={endDate}
+        onChange={(e) => setEndDate(e.target.value)}
+        sx={{ marginRight: '10px' }}
+      />
+      <Button variant="contained" onClick={handleGenerateReport}>Generar Reporte</Button>
+      <Button variant="contained" onClick={handlePrintPDF} sx={{ marginLeft: '10px' }}>Descargar reporte</Button>
+      <Button variant="contained" onClick={handleClearReport} sx={{ marginLeft: '10px' }}>Limpiar Reporte</Button>
+
+      <h2>Tabla de Ventas</h2>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>ID de Venta</TableCell>
+            <TableCell>Vendedor</TableCell>
+            <TableCell>Libros</TableCell>
+            <TableCell>Cantidad</TableCell>
+            <TableCell>Fecha de Venta</TableCell>
+            <TableCell>Total</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {salesData.map((sale) => (
+            <TableRow key={sale.id}>
+              <TableCell>{sale.id}</TableCell>
+              <TableCell>{sale.user}</TableCell>
+              <TableCell>{sale.book}</TableCell>
+              <TableCell>{sale.quantity}</TableCell>
+              <TableCell>{sale.date}</TableCell>
+              <TableCell>{sale.total_price}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 

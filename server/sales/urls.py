@@ -7,4 +7,5 @@ urlpatterns = [
     path('create/', views.create_sale),
     path('my/', views.my_sales),
     path('<int:pk>/', views.solo_sales),
+    
 ]

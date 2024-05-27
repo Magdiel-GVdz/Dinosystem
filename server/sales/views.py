@@ -11,6 +11,7 @@ from .serializers import SaleSerializer, SaleItemSerializer
 from books.models import Book
 from django.db.utils import IntegrityError
 
+
 @api_view(['GET'])
 #@permission_classes([IsAdminUser])
 def search(request):
@@ -152,5 +153,7 @@ def my_sales(request):
     sales = Sale.objects.filter(user=user)
     serializer = SaleSerializer(sales, many=True)
     return Response(serializer.data)
+    
+
     
 
