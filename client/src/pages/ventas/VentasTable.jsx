@@ -58,6 +58,7 @@ const VentasTable = () => {
               <TableCell>Libro</TableCell>
               <TableCell>Precio unitario</TableCell>
               <TableCell>Cantidad</TableCell>
+              <TableCell>descuento</TableCell>
               <TableCell>Subtotal</TableCell>
             </TableRow>
           </TableHead>
@@ -73,6 +74,7 @@ const VentasTable = () => {
                 </TableCell>
                 <TableCell>{row.price}</TableCell>
                 <TableCell>{row.quantity}</TableCell>
+                <TableCell>{row.promo}</TableCell>
                 <TableCell>{row.quantity * row.price }</TableCell>
                 
               </TableRow>
