@@ -41,7 +41,7 @@ const VentasForm = () => {
       const title = newData.title
       const quantity = data.quantity
       const price = newData.price
-      
+    
 
       addBookToSale({barcode, title, quantity, price})
       console.log(barcode)

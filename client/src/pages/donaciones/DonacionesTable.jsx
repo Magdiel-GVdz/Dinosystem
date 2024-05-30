@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -14,27 +13,27 @@ import {
   Stack,
 } from "@mui/material";
 import { useBook } from "../../hooks/useBook";
-import { useContextLosses } from "../../provider/LossesProvider";
+import { useContextDonations } from "../../provider/DonationsProvider";
 
-const MermasTable = () => {
+const DonacionesTable = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0); // Estado para controlar la página actual
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const {
-    lossState,
-    bookToLoss,
-    addBookToLoss,
-    addBookToLossState,
-    removeBookToLoss,
-    lossBook,
-    resetLossState,
-  } = useContextLosses();
+    donationState,
+    bookToDonate,
+    addBookToDonate,
+    addBookToDonationState,
+    removeBookToDonate,
+    donationBook,
+    resetDonationState,
+  } = useContextDonations();
 
   useEffect(() => {
-    console.log("data", lossState);
-    console.log("bookToloss", bookToLoss);
-  }, [lossState]);
+    console.log("data", donationState);
+    console.log("bookToDonate", bookToDonate);
+  }, [donationState]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -53,12 +52,13 @@ const MermasTable = () => {
             <TableRow>
               <TableCell>Libro</TableCell>
               <TableCell>Cantidad</TableCell>
-              <TableCell>Motivo de la perdida</TableCell>
+              <TableCell>Motivo de la donacion</TableCell>
+              <TableCell>beneficiario</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(lossState)}
-            {lossState.map((row) => (
+            {console.log(donationState)}
+            {donationState.map((row) => (
               <TableRow
                 key={row.barcode}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -68,6 +68,7 @@ const MermasTable = () => {
                 </TableCell>
                 <TableCell>{row.quantity}</TableCell>
                 <TableCell>{row.reason}</TableCell>
+                <TableCell>{row.beneficiary}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -82,24 +83,24 @@ const MermasTable = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      {lossState.length > 0 && (
+      {donationState.length > 0 && (
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
             onClick={() => {
-              lossBook()
-                .then(resetLossState())
-                .then(console.log("perdida")).catch((err) => console.log(err));
+              donationBook()
+                .then(resetDonationState())
+                .then(console.log("Donacion")).catch((err) => console.log(err));
             }}
           >
-            Guardar perdida
+            Guardar donacion
           </Button>
           <Button
             color="error"
             variant="contained"
-            onClick={() => resetLossState()}
+            onClick={() => resetDonationState()}
           >
-            Cancelar perdida
+            Cancelar donacion
           </Button>
         </Stack>
       )}
@@ -107,4 +108,4 @@ const MermasTable = () => {
   );
 };
 
-export default MermasTable;
+export default DonacionesTable;
