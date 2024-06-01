@@ -13,7 +13,11 @@ const ReportesVentasPage = () => {
   const handleGenerateReport = async () => {
     try {
       const data = await getSales();
-      setSalesData(data);
+      const filteredData = data.filter(sale => {
+        const saleDate = new Date(sale.date);
+        return (!startDate || saleDate >= new Date(startDate)) && (!endDate || saleDate <= new Date(endDate)) && (startDate || saleDate <= new Date(startDate));
+      });
+      setSalesData(filteredData);
     } catch (error) {
       console.error('Error generando el reporte:', error);
     }
@@ -21,18 +25,18 @@ const ReportesVentasPage = () => {
 
   const handleClearReport = () => {
     setSalesData([]);
+    setStartDate('');
+    setEndDate('');
   };
 
   const handlePrintPDF = () => {
     const doc = new jsPDF();
     doc.text('Reporte de Ventas', 10, 10);
     doc.autoTable({
-      head: [['ID de Venta', 'Vendedor', 'Libros','Cantidad', 'Fecha de Venta', 'Total']],
+      head: [['ID de Venta', 'Vendedor', 'Fecha de Venta', 'Total']],
       body: salesData.map(sale => [
         sale.id,
         sale.user,
-        sale.book,
-        sale.quantity,
         sale.date,
         sale.total_price
       ]),
@@ -49,6 +53,7 @@ const ReportesVentasPage = () => {
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
         sx={{ marginRight: '10px' }}
+        InputLabelProps={{ shrink: true }}
       />
       <TextField
         label="Fecha de fin"
@@ -56,6 +61,7 @@ const ReportesVentasPage = () => {
         value={endDate}
         onChange={(e) => setEndDate(e.target.value)}
         sx={{ marginRight: '10px' }}
+        InputLabelProps={{ shrink: true }}
       />
       <Button variant="contained" onClick={handleGenerateReport}>Generar Reporte</Button>
       <Button variant="contained" onClick={handlePrintPDF} sx={{ marginLeft: '10px' }}>Descargar reporte</Button>
@@ -67,8 +73,6 @@ const ReportesVentasPage = () => {
           <TableRow>
             <TableCell>ID de Venta</TableCell>
             <TableCell>Vendedor</TableCell>
-            <TableCell>Libros</TableCell>
-            <TableCell>Cantidad</TableCell>
             <TableCell>Fecha de Venta</TableCell>
             <TableCell>Total</TableCell>
           </TableRow>
@@ -78,8 +82,6 @@ const ReportesVentasPage = () => {
             <TableRow key={sale.id}>
               <TableCell>{sale.id}</TableCell>
               <TableCell>{sale.user}</TableCell>
-              <TableCell>{sale.book}</TableCell>
-              <TableCell>{sale.quantity}</TableCell>
               <TableCell>{sale.date}</TableCell>
               <TableCell>{sale.total_price}</TableCell>
             </TableRow>
