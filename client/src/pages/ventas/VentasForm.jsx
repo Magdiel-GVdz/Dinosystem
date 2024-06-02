@@ -10,6 +10,7 @@ import { useBook } from "../../hooks/useBook";
 import { Button, Stack, Typography } from "@mui/material";
 import { useContextSale } from "../../provider/VentasProvider";
 import {usePromo } from "../../hooks/usePromo";
+import { DisplaySettings } from "@mui/icons-material";
 const VentasForm = () => {
   const { getBooks, getBook } = useBook();
   const { getPromos, getPromo } = usePromo();
@@ -56,8 +57,11 @@ const VentasForm = () => {
     <div>
       <FormContainer onSuccess={onSuccess}>
         <Stack spacing={2} justifyContent="center" alignContent="center">
-          <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
+          <Stack  direction="row" spacing={2} justifyContent="center" mt={2} 
+
+          >
             <AutocompleteElement
+             
               control={control}
               required
               name="barcode"
@@ -92,6 +96,9 @@ const VentasForm = () => {
               type="number"
               defaultValue={selectedBook ? selectedBook.price : ""}
               disabled={!selectedBook}
+              sx={{
+                display: selectedBook ? "block" : "none",
+              }}
             />
             <Button variant="contained" type="submit">
               Añadir
