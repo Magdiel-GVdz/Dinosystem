@@ -45,6 +45,7 @@ const SaleProvider = ({ children }) => {
       return response;
     } catch (error) {
       console.error("An error occurred while selling the book:", error);
+      alert("An error occurred while selling the book:", error.message);
     }
   };
   return (

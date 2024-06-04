@@ -71,6 +71,7 @@ const VentasForm = () => {
                 value: book.barcode,
                 id: book.barcode,
               }))}
+              type="number"
               onChange={(event, newValue) => {
                 if (newValue) {
                   const selectedBook = books.find(
@@ -85,8 +86,16 @@ const VentasForm = () => {
               required
               name="quantity"
               label="Cantidad"
+              defaultValue={0}
               type="number"
-              defaultValue={-1}
+              inputProps={{ min: 0, inputMode: "numeric", pattern: "[0-9]*", step: "1" }}
+              onKeyDown={(event) => {
+                const key = event.key;
+                if (key === "-" || key === "+") {
+                  event.preventDefault();
+                }
+              }}
+              
             />
             <TextFieldElement
               control={control}
@@ -94,12 +103,14 @@ const VentasForm = () => {
               name="price"
               label="Precio"
               type="number"
+              inputProps={{ min: 0}}
               defaultValue={selectedBook ? selectedBook.price : ""}
               disabled={!selectedBook}
               sx={{
                 display: selectedBook ? "block" : "none",
               }}
             />
+            
             <Button variant="contained" type="submit">
               Añadir
             </Button>
