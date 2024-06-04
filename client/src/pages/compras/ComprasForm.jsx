@@ -64,8 +64,15 @@ const ComprasForm = () => {
               required
               name="quantity"
               label="Cantidad"
-              type="number"
               defaultValue={1}
+              type="number"
+              inputProps={{ min: 0, inputMode: "numeric", pattern: "[0-9]*", step: "1" }}
+              onKeyDown={(event) => {
+                const key = event.key;
+                if (key === "-" || key === "+") {
+                  event.preventDefault();
+                }
+              }}
             />
             <TextFieldElement
               control={control}
@@ -73,6 +80,13 @@ const ComprasForm = () => {
               name="price"
               label="Precio"
               type="number"
+              inputProps={{ min: 0, inputMode: "numeric", pattern: "[0-9]*", step: "1" }}
+              onKeyDown={(event) => {
+                const key = event.key;
+                if (key === "-" || key === "+") {
+                  event.preventDefault();
+                }
+              }}
             />
             <Button variant="contained" type="submit">
               Añadir
