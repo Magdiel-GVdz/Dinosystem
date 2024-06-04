@@ -33,6 +33,17 @@ const EditModal = ({ open, handleClose, handleCancel, handleAccept, label, value
             name="name"
             label={label}
             defaultValue={editValue}
+            type="text"
+                pattern="^[a-zA-Z\s]+$"
+                inputProps={{
+                  inputMode: "text",
+                  onKeyDown: (event) => {
+                    const key = event.key;
+                    if (!/^[a-zA-Z\s]$/.test(key)) {
+                      event.preventDefault();
+                    }
+                  },
+                }}
           />
         <Box sx={{ mt: 2 }}>
           <Button onClick={handleCancel}>Cancelar</Button>

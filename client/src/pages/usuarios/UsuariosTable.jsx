@@ -11,6 +11,7 @@ import { Button, TablePagination } from "@mui/material";
 import EditModal from "../../components/EditModal";
 import ConfirmModal from "../../components/ConfirmModal";
 import { Style } from "@mui/icons-material";
+import EditUsuariosModal from "./EditUsuariosModal";
 export default function PromocionesTable() {
   const [page, setPage] = useState(0); // Estado para controlar la página actual
   const [rowsPerPage, setRowsPerPage] = useState(5); // Estado para controlar las filas por página
@@ -117,7 +118,7 @@ export default function PromocionesTable() {
       </Paper>
       {selectedRow && ( // Mostrar el botón de editar si hay una fila seleccionada
         <>
-          <Button onClick={handleEditButtonClick} color="primary">
+        <Button onClick={handleEditButtonClick} color="primary">
             Editar
           </Button>
 
@@ -133,24 +134,34 @@ export default function PromocionesTable() {
             }}
             handleAccept={() => {
               setOpenConfirmEditModal(false);
-              updateUser({ id: selectedRow.id, is_active: newData });
+              updateUser({ id: selectedRow.id, email: newData, name: newData, last_name: newData, middle_name: newData, phone: newData, address: newData });
               setSelectedRow(null);
             }}
           />
 
-          <EditModal
-            open={openEditModal}
-            handleClose={() => setOpenEditModal(false)}
-            handleCancel={() => setOpenEditModal(false)}
-            handleAccept={(e) => {
-              console.log(e.name);
-              console.log(selectedRow.is_active);
-              setOpenConfirmEditModal(true);
-              setOpenEditModal(false);
-              setNewData(e.name);
-            }}
-            value={selectedRow.is_active}
-            label={"estado"}
+          <EditUsuariosModal
+          open={openEditModal}
+          handleClose={() => setOpenEditModal(false)}
+          handleCancel={() => setOpenEditModal(false)}
+          handleAccept={(e) => {
+            console.log(e.email , e.name , e.last_name , e.middle_name , e.phone , e.address );
+            console.log(selectedRow.email , selectedRow.name , selectedRow.last_name , selectedRow.middle_name , selectedRow.phone , selectedRow.address );
+            setOpenConfirmEditModal(true);
+            setOpenEditModal(false);
+            setNewData(e.email + e.name + e.last_name + e.middle_name  + e.phone  + e.address); 
+          }}
+          value1={selectedRow.email}
+          label1={"Email"}
+          value2={selectedRow.name}
+          label2={"Nombre"}
+          value3={selectedRow.last_name}
+          label3={"Apellido"}
+          value4={selectedRow.middle_name}
+          label4={"Segundo Nombre"}
+          value5={selectedRow.phone}
+          label5={"Numero de Celular"}
+          value6={selectedRow.address}
+          label6={"Domicilio"}
           />
         </>
       )}
