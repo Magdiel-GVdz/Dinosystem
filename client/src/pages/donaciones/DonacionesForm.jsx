@@ -77,7 +77,7 @@ const DonacionesForm = () => {
               inputProps={{ min: 0, inputMode: "numeric", pattern: "[0-9]*", step: "1" }}
               onKeyDown={(event) => {
                 const key = event.key;
-                if (key === "-" || key === "+") {
+                if (key === "-" || key === "+" || key === "." || key === "e") {
                   event.preventDefault();
                 }
               }}

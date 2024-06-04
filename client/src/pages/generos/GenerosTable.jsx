@@ -155,7 +155,6 @@ export default function GenerosTable() {
               console.log(e.name);
               console.log(selectedRow.name);
               setOpenConfirmEditModal(true);
-              setOpenEditModal(false);
               setNewData(e.name);
             }}
             value={selectedRow.name}

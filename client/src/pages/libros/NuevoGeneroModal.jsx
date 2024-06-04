@@ -51,15 +51,13 @@ function NuevoGeneroModal() {
                 required
                 control={control}
                 type="text"
-                pattern="^[a-zA-Z\s]+$"
-                inputProps={{
-                  inputMode: "text",
-                  onKeyDown: (event) => {
-                    const key = event.key;
-                    if (!/^[a-zA-Z\s]$/.test(key)) {
-                      event.preventDefault();
-                    }
-                  },
+                inputProps={{inputMode: "text", pattern: "^[a-zA-Z\\s]+$"}}
+                onKeyDown={(event) => {
+                  const key = event.key;
+                  const regex = /^[a-zA-Z\s]+$/;
+                  if (!regex.test(key)) {
+                    event.preventDefault();
+                  }
                 }}
               />
               <Button variant="contained" type="submit">
