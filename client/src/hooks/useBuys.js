@@ -46,6 +46,7 @@ export const useBuys = () => {
             return serverData
         } catch (error) {
             console.error("Error creating buy:", error)
+            alert("An error occurred while buying the book:", error.message);
             return []
         }
     }

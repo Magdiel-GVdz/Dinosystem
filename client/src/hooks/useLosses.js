@@ -46,6 +46,7 @@ export const useLosses = () => {
             return serverData
         } catch (error) {
             console.error("Error creating losse:", error)
+            alert("An error occurred while losing the book:", error.message);
             return []
         }
     }

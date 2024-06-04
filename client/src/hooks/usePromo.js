@@ -47,6 +47,7 @@ export const usePromo = () => {
           return data || {};
         } catch (error) {
           console.error("Error posting promos:", error);
+          alert("An error occurred while creating the promo:", error.message);
           return {};
         }
       }

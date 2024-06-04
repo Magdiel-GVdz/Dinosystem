@@ -43,6 +43,7 @@ export const useUser = () => {
           return data || {};
         } catch (error) {
           console.error("Error posting user:", error);
+          alert("An error occurred while creating the user:", error.message);
           return {};
         }
       }
@@ -57,6 +58,7 @@ export const useUser = () => {
           return data || {};
         } catch (error) {
           console.error("Error posting user:", error);
+          alert("An error occurred while creating the Superuser:", error.message);
           return {};
         }
       }

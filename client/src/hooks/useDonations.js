@@ -46,6 +46,7 @@ export const useDonations = () => {
             return serverData
         } catch (error) {
             console.error("Error creating donation:", error)
+            alert("An error occurred while donating the book:", error.message);
             return []
         }
     }

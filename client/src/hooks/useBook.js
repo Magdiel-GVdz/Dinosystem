@@ -117,6 +117,7 @@ export const useBook = () => {
       return data || {};
     } catch (error) {
       console.error("Error posting book:", error);
+      alert("An error occurred while creating the book:", error.message);
       return {};
     }
   };
@@ -131,6 +132,7 @@ export const useBook = () => {
       return data || {};
     } catch (error) {
       console.error("Error posting author:", error);
+      alert("An error occurred while creating the author:", error.message);
       return {};
     }
   };
@@ -145,6 +147,7 @@ export const useBook = () => {
       return data || {};
     } catch (error) {
       console.error("Error posting genre:", error);
+      alert("An error occurred while creating the genre:", error.message);
       return {};
     }
   };
@@ -159,6 +162,7 @@ export const useBook = () => {
       return data || {};
     } catch (error) {
       console.error("Error posting publisher:", error);
+      alert("An error occurred while creating the publisher:", error.message);
       return {};
     }
   };
