@@ -74,6 +74,13 @@ const DonacionesForm = () => {
               name="quantity"
               label="Cantidad"
               type="number"
+              inputProps={{ min: 0, inputMode: "numeric", pattern: "[0-9]*", step: "1" }}
+              onKeyDown={(event) => {
+                const key = event.key;
+                if (key === "-" || key === "+") {
+                  event.preventDefault();
+                }
+              }}
             />
             <TextFieldElement
               control={control}
@@ -88,6 +95,16 @@ const DonacionesForm = () => {
               name="beneficiary"
               label="Beneficiario"
               type="text"
+                pattern="^[a-zA-Z\s]+$"
+                inputProps={{
+                  inputMode: "text",
+                  onKeyDown: (event) => {
+                    const key = event.key;
+                    if (!/^[a-zA-Z\s]$/.test(key)) {
+                      event.preventDefault();
+                    }
+                  },
+                }}
             />
             <Button variant="contained" type="submit">
               Añadir

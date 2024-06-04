@@ -79,53 +79,13 @@ function EditFormBook() {
             control={control}
           />
           <TextFieldElement
-            name="ISBN"
-            label="ISBN"
-            required
-            control={control}
-          />
-          <TextFieldElement
             name="price"
             label="Precio"
             required
             control={control}
             type={"number"}
           />
-          <AutocompleteElement
-            name="authors"
-            label="Autor(es)"
-            required
-            multiple
-            control={control}
-            options={authors.map((author) => ({
-              label: author.name,
-              value: author.name,
-              id: author.id,
-            }))}
-          />
-          <AutocompleteElement
-            name="publisher"
-            label="Editorial"
-            control={control}
-            required
-            options={publishers.map((publisher) => ({
-              label: publisher.name,
-              value: publisher.name,
-              id: publisher.id,
-            }))}
-          />
-          <AutocompleteElement
-            name="categories"
-            label="Genero(s)"
-            control={control}
-            required
-            multiple
-            options={genres.map((gener) => ({
-              label: gener.name,
-              value: gener.name,
-              id: gener.id,
-            }))}
-          />
+          
           <Button variant="contained" type="submit">
             editar
           </Button>

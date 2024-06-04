@@ -81,19 +81,39 @@ function LibrosForm() {
             label="Codigo de Barras"
             required
             control={control}
+            type="number"
+            inputProps={{ min: 0, inputMode: "numeric", pattern: "[0-9]*", step: "1" }}
+            onKeyDown={(event) => {
+              const key = event.key;
+              if (key === "-" || key === "+") {
+                event.preventDefault();
+              }}}
           />
           <TextFieldElement
             name="ISBN"
             label="ISBN"
             required
             control={control}
+            type="number"
+            inputProps={{ min: 0, inputMode: "numeric", pattern: "[0-9]*", step: "1" }}
+            onKeyDown={(event) => {
+              const key = event.key;
+              if (key === "-" || key === "+") {
+                event.preventDefault();
+              }}}
           />
           <TextFieldElement
             name="price"
             label="Precio"
             required
             control={control}
-            type={"number"}
+            type="number"
+            inputProps={{ min: 0, inputMode: "numeric", pattern: "[0-9]*", step: "1" }}
+            onKeyDown={(event) => {
+              const key = event.key;
+              if (key === "-" || key === "+") {
+                event.preventDefault();
+              }}}
           />
           <AutocompleteElement
             name="authors"

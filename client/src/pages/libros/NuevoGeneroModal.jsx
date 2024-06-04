@@ -50,6 +50,17 @@ function NuevoGeneroModal() {
                 label="Nuevo Genero"
                 required
                 control={control}
+                type="text"
+                pattern="^[a-zA-Z\s]+$"
+                inputProps={{
+                  inputMode: "text",
+                  onKeyDown: (event) => {
+                    const key = event.key;
+                    if (!/^[a-zA-Z\s]$/.test(key)) {
+                      event.preventDefault();
+                    }
+                  },
+                }}
               />
               <Button variant="contained" type="submit">
                 Añadir
