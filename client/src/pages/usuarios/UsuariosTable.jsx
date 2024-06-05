@@ -121,7 +121,7 @@ export default function PromocionesTable() {
         <Button onClick={handleEditButtonClick} color="primary">
             Editar
           </Button>
-
+              
           <ConfirmModal
             open={openConfirmEditModal}
             handleClose={() => {

@@ -56,7 +56,7 @@ function UsusariosForm() {
     <>
       <FormContainer onSuccess={onSuccess}>
         <Stack spacing={2}>
-          <Typography variant="h6">Nuevo Usuario</Typography>
+          <Typography variant="h6">Nuevo Empleado</Typography>
           <TextFieldElement
             name="email"
             label="Correo"

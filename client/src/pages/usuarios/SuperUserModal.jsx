@@ -1,7 +1,8 @@
 import { Box, Button, Modal } from "@mui/material";
 import React, { useState } from "react";
 import UsusariosForm from "./UsuariosForm";
-const UsuarisoModal = () => {
+import SuperUsersForm from "./SuperUsersForm";
+const SuperUserModal = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -9,7 +10,7 @@ const UsuarisoModal = () => {
   
   return (
     <>
-      <Button onClick={handleOpen}>Nuevo Empleado</Button>
+      <Button onClick={handleOpen}>Nuevo Gerente</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -30,7 +31,7 @@ const UsuarisoModal = () => {
             overflowY: "auto", // Agrega scroll vertical si el contenido es demasiado largo
           }}
         >
-        <UsusariosForm />
+        <SuperUsersForm />
         </Box>
         
       </Modal>
@@ -39,4 +40,4 @@ const UsuarisoModal = () => {
   );
 };
 
-export default UsuarisoModal;
+export default SuperUserModal;
